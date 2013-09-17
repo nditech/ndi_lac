@@ -1,0 +1,16 @@
+%h1
+  New Contact
+  %small
+    = link_to 'Return', contacts_path, class: 'btn btn-primary pull-right'
+    
+
+= render partial: 'form'
+  
+<script id="regions-template" type="text/x-handlebars-template">
+<select class="form-control" name="contact[state_code]" required>
+<option>Please select one</option>
+{{#each regions}}
+<option value="{{code}}">{{name}}</option>
+{{/each}}
+</select>
+</script>

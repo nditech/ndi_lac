@@ -1,0 +1,23 @@
+development:
+  adapter: postgresql
+  encoding: unicode
+  database: ndi_database_development
+  pool: 5
+  username: <%= `whoami` %>
+  password:
+
+test:
+  adapter: postgresql
+  encoding: unicode
+  database: ndi_database_test
+  pool: 5
+  username: <%= `whoami` %>
+  password:
+
+production:
+  adapter: postgresql
+  encoding: unicode
+  database: ndi_database_production
+  pool: 5
+  username: ndi_database
+  password:

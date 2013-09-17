@@ -1,0 +1,30 @@
+= form_for @user, html: {class: 'form-horizontal'} do |form|
+
+  %fieldset
+    %legend User Information
+    .form-group
+      %label.col-lg-2.control-label Email:
+      .col-lg-10
+        = form.text_field :email, class: 'form-control', required: true
+    
+    .form-group
+      %label.col-lg-2.control-label Country:
+      .col-lg-10
+        = form.country_select :country_code, {prompt: 'Please select one'}, class: 'form-control', required: true
+
+  - unless @user.new_record?
+    %fieldset
+      %legend Password
+      .form-group
+        %label.col-lg-2.control-label Password:
+        .col-lg-10
+          = form.password_field :password, class: 'form-control'
+      
+      .form-group
+        %label.col-lg-2.control-label Password confirmation:
+        .col-lg-10
+          = form.password_field :password_confirmation, class: 'form-control'
+      
+      
+
+  = form.submit 'Submit', class: 'btn btn-primary'

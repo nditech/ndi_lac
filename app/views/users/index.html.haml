@@ -1,0 +1,14 @@
+%h1 
+  Users
+  %small
+    = link_to 'New User', new_user_path, class: 'btn btn-primary pull-right'
+
+%table.table.table-hover.table-bordered
+  %thead
+    %tr
+      %th ID
+      %th Name
+      %th Country
+      %th Actions
+  %tbody
+    = render @users

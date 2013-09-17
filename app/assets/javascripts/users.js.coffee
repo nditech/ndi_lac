@@ -1,0 +1,1 @@
+$("#user_country_code").chosen()

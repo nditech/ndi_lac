@@ -1,0 +1,23 @@
+.tag_list {
+  margin-bottom: 10px;
+
+  .label.label-primary {
+    margin-right: 5px;
+    
+    a {
+      color: #fff;
+    }
+  }
+}
+
+#contacts-filters {
+  margin-bottom: 30px;
+  padding-bottom: 30px;
+  border-bottom: 1px solid #dddddd;
+  
+  .filter-row {
+    @extend .row;
+    margin-bottom: 10px;
+  }
+  
+}

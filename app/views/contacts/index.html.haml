@@ -1,0 +1,15 @@
+%h1 
+  Contacts
+  %small
+    = link_to 'New Contact', new_contact_path, class: 'btn btn-primary pull-right'
+
+= render partial: 'contacts/filters'
+
+%table.table.table-hover.table-bordered
+  %thead
+    %tr
+      - params[:cols].each do |column|
+        %th= column.humanize
+      %th Actions
+  %tbody
+    = render @contacts

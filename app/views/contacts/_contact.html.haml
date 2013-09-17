@@ -1,0 +1,5 @@
+%tr
+  - params[:cols].each do |column|
+    %td= contact.send column
+  %td
+    =link_to 'Edit', edit_contact_path(contact)

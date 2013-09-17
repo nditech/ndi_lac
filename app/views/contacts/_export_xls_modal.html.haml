@@ -1,0 +1,92 @@
+#exportModal.modal.fade{"role" => "dialog", "aria-labelledby" => "myModalLabel", "aria-hidden" => "true"}
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} ×
+        %h4.modal-title Export Results
+      .modal-body
+        = form_tag "/export_excel.xls", id: "export-excel-form" do
+          .hidden
+            = text_field_tag 'filters[first_name]', params[:filters][:first_name], class: 'form-control'
+            = text_field_tag 'filters[last_name]', params[:filters][:last_name], class: 'form-control'
+            = text_field_tag 'filters[email]', params[:filters][:email], class: 'form-control'
+            = select_tag "filters[countries_code]", 
+                options_for_select(Carmen::Country.all.map {|country| [country.name, country.code]}, params[:filters][:countries_code]), 
+                multiple: true
+            = select_tag "filters[organizations]", 
+                options_for_select(Organization.all.map {|organization| [organization.name, organization.id]}, params[:filters][:organizations]), 
+                multiple: true
+            = select_tag "filters[political_positions]", 
+                options_for_select(Contact::POLITICAL_POSITIONS.map {|position| [position.last.humanize, position.first]}, params[:filters][:political_positions]), 
+                multiple: true
+            = select_tag "filters[level_of_trust]", 
+                options_for_select([1,2,3,4,5], params[:filters][:level_of_trust]), 
+                multiple: true
+            = select_tag "filters[tags]", 
+                options_for_select(ActsAsTaggableOn::Tag.all.map {|tag| tag.name}, params[:filters][:tags]), 
+                multiple: true
+          
+          %h3 Cols to export
+          .row
+            .col-lg-3
+              = label_tag 'cols[first_name]', 'First Name'
+              = check_box_tag 'cols[first_name]'
+
+            .col-lg-3
+              = label_tag 'cols[last_name]', 'Last Name'
+              = check_box_tag 'cols[last_name]'
+
+            .col-lg-3
+              = label_tag 'cols[email]', 'Email'
+              = check_box_tag 'cols[email]'
+
+            .col-lg-3
+              = label_tag 'cols[address]', 'Address'
+              = check_box_tag 'cols[address]'
+
+          .row
+            .col-lg-3
+              = label_tag 'cols[address_2]', 'Address 2'
+              = check_box_tag 'cols[address_2]'
+
+            .col-lg-3
+              = label_tag 'cols[country_code]', 'Country'
+              = check_box_tag 'cols[country_code]'
+
+            .col-lg-3
+              = label_tag 'cols[state_code]', 'Region'
+              = check_box_tag 'cols[state_code]'
+              
+            .col-lg-3
+              = label_tag 'cols[city]', 'City'
+              = check_box_tag 'cols[city]'
+          
+          .row
+            .col-lg-3
+              = label_tag 'cols[telephone]', 'Telephone'
+              = check_box_tag 'cols[telephone]'
+
+            .col-lg-3
+              = label_tag 'cols[cellphone]', 'Cellphone'
+              = check_box_tag 'cols[cellphone]'
+
+            .col-lg-3
+              = label_tag 'cols[organization]', 'Organization'
+              = check_box_tag 'cols[organization]'
+
+            .col-lg-3
+              = label_tag 'cols[position]', 'Position'
+              = check_box_tag 'cols[position]'
+
+          .row
+            .col-lg-6
+              = label_tag 'cols[political_position]', 'Political position'
+              = check_box_tag 'cols[political_position]'
+
+            .col-lg-3
+              = label_tag 'cols[level_trust]', 'Level of trust'
+              = check_box_tag 'cols[level_trust]'
+
+      .modal-footer
+        %button.btn.btn-default{"data-dismiss" => "modal", :type => "button"} Close
+        %button#export-excel-button.btn.btn-primary{:type => "button"} Export

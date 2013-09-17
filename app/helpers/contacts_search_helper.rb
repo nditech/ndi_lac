@@ -1,0 +1,2 @@
+module ContactsSearchHelper
+end

@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+  xmlns:o="urn:schemas-microsoft-com:office:office"
+  xmlns:x="urn:schemas-microsoft-com:office:excel"
+  xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+  xmlns:html="http://www.w3.org/TR/REC-html40">
+  <Worksheet ss:Name="Sheet1">
+    <Table>
+      <Row>
+        <Cell><Data ss:Type="String">ID</Data></Cell>
+        <% @cols.each do |col|%>
+          <Cell><Data ss:Type="String"><%= col.humanize %></Data></Cell>
+        <% end %>
+      </Row>
+    <% @contacts.each do |contact| %>
+      <Row>
+        <Cell><Data ss:Type="Number"><%= contact.id %></Data></Cell>
+        <% @cols.each do |col|%>
+          <Cell><Data ss:Type="String"><%= contact.send(col) %></Data></Cell>
+        <% end %>
+      </Row>
+    <% end %>
+    </Table>
+  </Worksheet>
+</Workbook>
