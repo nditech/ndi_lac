@@ -54,6 +54,8 @@ GEM
       net-sftp (>= 2.0.0)
       net-ssh (>= 2.0.14)
       net-ssh-gateway (>= 1.1.0)
+    capistrano-unicorn (0.1.10)
+      capistrano
     carmen (1.0.0)
       unicode_utils (~> 1.4.0)
     coffee-rails (4.0.0)
@@ -177,6 +179,7 @@ DEPENDENCIES
   bootstrap-sass!
   cancan
   capistrano
+  capistrano-unicorn
   carmen-rails!
   coffee-rails (~> 4.0.0)
   devise

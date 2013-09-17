@@ -24,4 +24,7 @@ gem 'devise'
 gem 'cancan'
 gem 'rolify'
 
-gem 'capistrano'
+group :development do
+  gem 'capistrano'
+  gem 'capistrano-unicorn', :require => false
+end
