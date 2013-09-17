@@ -28,3 +28,7 @@ group :development do
   gem 'capistrano'
   gem 'capistrano-unicorn', :require => false
 end
+
+group :production do
+  gem 'unicorn'
+end

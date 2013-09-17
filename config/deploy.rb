@@ -32,7 +32,7 @@ end
 
 namespace :deploy do
   task :precompile, :role => :app do
-    run "cd #{release_path}/ && #{bundle_cmd} exec rake assets:precompile"
+    run "cd #{release_path}/ && RAILS_ENV=#{app_env} #{bundle_cmd} exec rake assets:precompile"
   end
 end
 
