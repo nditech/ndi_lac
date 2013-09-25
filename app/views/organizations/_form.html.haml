@@ -1,0 +1,37 @@
+= form_for @organization, html: {class: 'form-horizontal'} do |form|
+
+  %fieldset
+    %legend Information
+    .form-group
+      %label.col-lg-2.control-label Name:
+      .col-lg-10
+        = form.text_field :name, class: 'form-control', required: true
+
+    .form-group
+      %label.col-lg-2.control-label Address:
+      .col-lg-10
+        = form.text_field :address, class: 'form-control'
+
+    .form-group
+      %label.col-lg-2.control-label Address line 2:
+      .col-lg-10
+        = form.text_field :address_2, class: 'form-control'
+
+    .form-group
+      %label.col-lg-2.control-label Country:
+      .col-lg-10
+        = form.country_select :country_code, {prompt: 'Please select one'}, class: 'form-control', required: true
+        
+    .form-group
+      %label.col-lg-2.control-label Region:
+      #region-container.col-lg-10
+        - unless @organization.new_record?
+          = form.select :state_code, Carmen::Country.coded(@organization.country_code).subregions.map {|region| [region.name, region.code]}, {prompt: 'Please select one'}, {class: 'form-control', required: true}
+          
+
+    .form-group
+      %label.col-lg-2.control-label City:
+      .col-lg-10
+        = form.text_field :city, class: 'form-control'
+
+  = form.submit 'Submit', class: 'btn btn-primary'

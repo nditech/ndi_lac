@@ -1,0 +1,16 @@
+%h1 
+  Organizations
+  %small
+    = link_to new_organization_path, class: 'btn btn-primary pull-right' do
+      %span.glyphicon.glyphicon-plus
+      New Organization
+
+%table.table.table-hover.table-bordered
+  %thead
+    %tr
+      %th ID
+      %th Name
+      %th Country
+      %th Actions
+  %tbody
+    = render @organizations
