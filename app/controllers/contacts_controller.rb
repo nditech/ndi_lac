@@ -3,7 +3,7 @@ class ContactsController < ApplicationController
   def index
     @contacts = Contact.all
     params[:filters] = {}
-    params[:cols] = ['first_name', 'last_name', 'email']
+    params[:cols] = ['first_name', 'last_name', 'email', 'telephone']
   end
   
   def new

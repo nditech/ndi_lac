@@ -1,7 +1,9 @@
 %h1 
   Users
   %small
-    = link_to 'New User', new_user_path, class: 'btn btn-primary pull-right'
+    = link_to new_user_path, class: 'btn btn-primary pull-right' do
+      %span.glyphicon.glyphicon-plus
+      New User
 
 %table.table.table-hover.table-bordered
   %thead

@@ -1,7 +1,10 @@
 %h1
   Edit Contact
   %small
-    = link_to 'Return', contacts_path, class: 'btn btn-primary pull-right'
+    = link_to contacts_path, class: 'btn btn-primary pull-right' do
+      %span.glyphicon.glyphicon-arrow-left
+      Return
+      
     
 
 = render partial: 'form'

@@ -23,6 +23,8 @@ gem 'sunspot_rails'
 gem 'devise'
 gem 'cancan'
 gem 'rolify'
+gem 'roo'
+gem 'debugger'
 
 group :development do
   gem 'capistrano'

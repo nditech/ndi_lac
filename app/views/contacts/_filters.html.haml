@@ -43,8 +43,15 @@
 
       .filter-row
         .col-lg-12
-          = submit_tag 'Search', class: 'btn btn-primary'
-          = link_to 'Export to Excel', '#', class: 'btn btn-success', id: 'export-to-excel-button'
+          = link_to class: 'btn btn-primary', id: 'submit-search-form-button' do
+            %span.glyphicon.glyphicon-search
+            Search
+          = link_to '#', class: 'btn btn-success', id: 'export-to-excel-button' do
+            %span.glyphicon.glyphicon-cloud-download
+            Export to Excel
+          = link_to '#importModal', class: 'btn btn-info', id: 'export-to-excel-button', "data-toggle" => "modal" do
+            %span.glyphicon.glyphicon-cloud-upload
+            Import Excel
     .col-lg-3
       %label Columns to show
       = select_tag 'cols', cols_to_options(params[:cols]), multiple: true, class: 'form-control'

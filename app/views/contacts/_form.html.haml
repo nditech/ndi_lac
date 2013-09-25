@@ -35,7 +35,7 @@
     .form-group
       %label.col-lg-2.control-label Region:
       #region-container.col-lg-10
-        - unless @contact.new_record?
+        - if @contact.country_code.present?
           = form.select :state_code, Carmen::Country.coded(@contact.country_code).subregions.map {|region| [region.name, region.code]}, {prompt: 'Please select one'}, {class: 'form-control', required: true}
           
 

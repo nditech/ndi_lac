@@ -38,6 +38,13 @@ $("#contacts-filters #filters_countries_code, #contacts-filters #filters_organiz
 
 $('#export-to-excel-button').click (event) ->
   event.preventDefault()
-  formAction = $('#filters-contacts-form').attr('action')
-  $('#filters-contacts-form').attr('action','/export_excel.xls').submit()
-  $('#filters-contacts-form').attr('action',formAction )
+  exportExcelForm = $('form#filters-contacts-form').clone()
+  exportExcelForm.attr('action','/export_excel.xls').submit()
+  
+$('#submit-search-form-button').click (event) ->
+  event.preventDefault()
+  $('form#filters-contacts-form').submit()
+  
+$('#import-excel-button').click (event) ->
+  event.preventDefault()
+  $('form#import-excel-form').submit()

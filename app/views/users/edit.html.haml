@@ -1,7 +1,9 @@
 %h1
   Edit User
   %small
-    = link_to 'Return', contacts_path, class: 'btn btn-primary pull-right'
+    = link_to users_path, class: 'btn btn-primary pull-right' do
+      %span.glyphicon.glyphicon-arrow-left
+      Return
     
 
 = render partial: 'form'

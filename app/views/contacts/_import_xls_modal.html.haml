@@ -1,0 +1,13 @@
+#importModal.modal.fade{"role" => "dialog", "aria-labelledby" => "myModalLabel", "aria-hidden" => "true"}
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} ×
+        %h4.modal-title Import Excel
+      .modal-body
+        = form_tag "/import_excel", id: "import-excel-form", multipart: true do
+          = file_field_tag 'file', accept: 'application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,.csv'
+
+      .modal-footer
+        %button.btn.btn-default{"data-dismiss" => "modal", :type => "button"} Close
+        %button#import-excel-button.btn.btn-primary{:type => "button"} Import

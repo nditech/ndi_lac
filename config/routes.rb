@@ -1,6 +1,6 @@
 NdiDatabase::Application.routes.draw do
   devise_for :users
-  root 'dashboard#index'
+  root 'contacts#index'
   
   match "/profile", to: 'users#profile', as: 'user_profile', via: :get
   
@@ -10,4 +10,5 @@ NdiDatabase::Application.routes.draw do
   resources :countries, only: [:show]
   resources :contacts_search, only: [:create]
   resources :export_excel, only: [:create]
+  resources :import_excel, only: [:create]
 end
