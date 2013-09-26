@@ -56,7 +56,8 @@ class UsersController < ApplicationController
       :email,
       :country_code,
       :pasword,
-      :password_confirmation
+      :password_confirmation,
+      :role
     )
   end
   

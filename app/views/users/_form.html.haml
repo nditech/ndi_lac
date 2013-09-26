@@ -12,11 +12,29 @@
       .col-lg-10
         = form.country_select :country_code, {prompt: 'Please select one'}, class: 'form-control', required: true
 
+  - if current_user.has_role? :admin
+    %fieldset
+      %legend Permissions
+      .form-group
+        %label.col-lg-2.control-label{for: 'user_role_admin'} Admin
+        .col-lg-10
+          = form.radio_button :role, 'admin'
+      
+      .form-group
+        %label.col-lg-2.control-label{for: 'user_role_user_all'} User all countries
+        .col-lg-10
+          = form.radio_button :role, 'user_all'
+
+      .form-group
+        %label.col-lg-2.control-label{for: 'user_role_user_own'} User own country
+        .col-lg-10
+          = form.radio_button :role, 'user_own'
+  
   - unless @user.new_record?
     %fieldset
       %legend Password
       .form-group
-        %label.col-lg-2.control-label Password:
+        %label.col-lg-2.control-label Password
         .col-lg-10
           = form.password_field :password, class: 'form-control'
       
