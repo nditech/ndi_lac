@@ -1,7 +1,8 @@
 production:
   solr:
-    hostname: localhost
-    port: 8983
+    hostname: redinnovacion.org
+    port: 8080
+    path: /solr/ndi-lac
     log_level: WARNING
     # read_timeout: 2
     # open_timeout: 0.5

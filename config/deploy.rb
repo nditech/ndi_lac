@@ -36,17 +36,8 @@ namespace :deploy do
   end
 end
 
-namespace :sunspot do
-  task :restart, :role => :app do
-    run "cd #{release_path}/ && RAILS_ENV=#{rails_env} #{bundle_cmd} exec sunspot-solr stop"
-    run "cd #{release_path}/ && RAILS_ENV=#{rails_env} #{bundle_cmd} exec sunspot-solr start -d #{deploy_to}/shared"
-  end
-end
-
 after "deploy:finalize_update", "db:db_config"
 after "deploy:finalize_update", "deploy:precompile"
-after "deploy:finalize_update", "sunspot:restart"
-
 
 after 'deploy:restart', 'unicorn:reload'    # app IS NOT preloaded
 after 'deploy:restart', 'unicorn:restart'   # app preloaded
