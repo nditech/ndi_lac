@@ -2,8 +2,10 @@
   - params[:cols].each do |column|
     %td
       - if column == 'country_code'
-        =Carmen::Country.coded(contact.send(column)).name
-        = "(#{contact.send column})"
+        - country_code = contact.send(column)
+        - if country_code.present?
+          =Carmen::Country.coded(country_code).name
+          = "(#{country_code})"
       -else
         = contact.send column
   %td

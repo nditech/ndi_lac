@@ -48,3 +48,9 @@ $('#submit-search-form-button').click (event) ->
 $('#import-excel-button').click (event) ->
   event.preventDefault()
   $('form#import-excel-form').submit()
+
+$('#export-to-pdf-button').click (event) ->
+  event.preventDefault()
+  exportExcelForm = $('form#filters-contacts-form').clone()
+  exportExcelForm.attr('action','/export_pdf.pdf').submit()
+

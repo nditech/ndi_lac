@@ -131,6 +131,13 @@ GEM
     phone (1.1)
     polyglot (0.3.3)
     pr_geohash (1.0.0)
+    prawn (0.8.4)
+      prawn-core (>= 0.8.4, < 0.9)
+      prawn-layout (>= 0.8.4, < 0.9)
+      prawn-security (>= 0.8.4, < 0.9)
+    prawn-core (0.8.4)
+    prawn-layout (0.8.4)
+    prawn-security (0.8.4)
     rack (1.5.2)
     rack-test (0.6.2)
       rack (>= 1.0)
@@ -225,6 +232,7 @@ DEPENDENCIES
   jquery-rails
   pg
   phone
+  prawn
   rails (= 4.0.0)
   rolify
   roo

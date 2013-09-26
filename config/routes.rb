@@ -10,5 +10,6 @@ NdiDatabase::Application.routes.draw do
   resources :countries, only: [:show]
   resources :contacts_search, only: [:create]
   resources :export_excel, only: [:create]
+  resources :export_pdf, only: [:create]
   resources :import_excel, only: [:create]
 end
