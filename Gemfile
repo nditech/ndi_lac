@@ -25,6 +25,7 @@ gem 'cancan'
 gem 'rolify'
 gem 'roo'
 gem 'debugger'
+gem "sentry-raven", :git => "https://github.com/getsentry/raven-ruby.git"
 
 group :development do
   gem 'capistrano'

@@ -3,7 +3,7 @@ class UsersMailer < ActionMailer::Base
   
   def welcome_email(user, password)
     @user = user
-    @passw0rd  = password
+    @password  = password
     mail(to: @user.email, subject: 'Welcome to NDI Database')
   end
 end
