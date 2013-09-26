@@ -10,7 +10,10 @@
     .form-group
       %label.col-lg-2.control-label Country:
       .col-lg-10
-        = form.country_select :country_code, {prompt: 'Please select one'}, class: 'form-control', required: true
+        - if current_user.is_admin?
+          = form.country_select :country_code, {prompt: 'Please select one'}, class: 'form-control', required: true
+        - else
+          = Carmen::Country.coded(@user.country_code).name
 
   - if current_user.has_role? :admin
     %fieldset
@@ -36,7 +39,7 @@
       .form-group
         %label.col-lg-2.control-label Password
         .col-lg-10
-          = form.password_field :password, class: 'form-control'
+          = form.password_field :password, autocomplete: "off", class: 'form-control'
       
       .form-group
         %label.col-lg-2.control-label Password confirmation:

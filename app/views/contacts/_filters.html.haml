@@ -21,8 +21,9 @@
                 multiple: true, include_blank: true, class: 'form-control'
 
           - else
-            %strong=current_user.country_code
-            =hidden_tag 'filters[countries_code]', current_user.country_code
+            %br
+            %strong=Carmen::Country.coded(current_user.country_code).name
+            =hidden_field_tag 'filters[countries_code]', current_user.country_code
       .filter-row
         .col-lg-3
           %label Organization
@@ -53,9 +54,10 @@
           = link_to '#', class: 'btn btn-success', id: 'export-to-excel-button' do
             %span.glyphicon.glyphicon-cloud-download
             Export to Excel
-          = link_to '#importModal', class: 'btn btn-info', id: 'export-to-excel-button', "data-toggle" => "modal" do
-            %span.glyphicon.glyphicon-cloud-upload
-            Import Excel
+          - if current_user.is_admin?
+            = link_to '#importModal', class: 'btn btn-info', id: 'export-to-excel-button', "data-toggle" => "modal" do
+              %span.glyphicon.glyphicon-cloud-upload
+              Import Excel
     .col-lg-3
       %label Columns to show
       = select_tag 'cols', cols_to_options(params[:cols]), multiple: true, class: 'form-control'

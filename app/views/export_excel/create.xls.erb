@@ -16,7 +16,11 @@
       <Row>
         <Cell><Data ss:Type="Number"><%= contact.id %></Data></Cell>
         <% @cols.each do |col|%>
-          <Cell><Data ss:Type="String"><%= contact.send(col) %></Data></Cell>
+          <% if col == 'country_code'%>
+            <Cell><Data ss:Type="String"><%= Carmen::Country.coded(contact.send(col)).name %></Data></Cell>
+          <% else %>
+            <Cell><Data ss:Type="String"><%= contact.send(col) %></Data></Cell>
+          <% end %>
         <% end %>
       </Row>
     <% end %>

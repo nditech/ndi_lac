@@ -34,7 +34,13 @@ module SolrSearch
             with(:first_name, filters[:first_name].downcase) if filters[:first_name].present?
             with(:last_name, filters[:last_name].downcase) if filters[:last_name].present?
             with(:email, filters[:email].downcase) if filters[:email].present?
-            with(:country_code).any_of(filters[:countries_code]) if filters[:countries_code].present?
+            if filters[:countries_code].present?
+              if filters[:countries_code].is_a? Array
+                with(:country_code).any_of(filters[:countries_code])
+              else
+                with(:country_code, filters[:countries_code])
+              end
+            end
             with(:organization_id).any_of(filters[:organizations]) if filters[:organizations].present?
             with(:political_position).any_of(filters[:political_positions]) if filters[:political_positions].present?
             with(:level_trust).any_of(filters[:level_of_trust]) if filters[:level_of_trust].present?

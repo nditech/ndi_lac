@@ -29,6 +29,10 @@ class User < ActiveRecord::Base
     has_role?(:admin) || has_role?(:user_all)
   end
   
+  def is_admin?
+    has_role?(:admin)
+  end
+  
   private
   
   def set_default_role

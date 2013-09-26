@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
-  load_and_authorize_resource except: [:create]
-  skip_authorize_resource :only => [:profile, :update]
+  load_and_authorize_resource
+  skip_authorize_resource :only => [:profile, :update, :create]
   
   def index
     @users = User.all
@@ -55,7 +55,7 @@ class UsersController < ApplicationController
     params.require(:user).permit(
       :email,
       :country_code,
-      :pasword,
+      :password,
       :password_confirmation,
       :role
     )

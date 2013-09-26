@@ -1,10 +1,17 @@
 %tr
   - params[:cols].each do |column|
-    %td= contact.send column
+    %td
+      - if column == 'country_code'
+        =Carmen::Country.coded(contact.send(column)).name
+        = "(#{contact.send column})"
+      -else
+        = contact.send column
   %td
-    =link_to edit_contact_path(contact), class: 'btn btn-primary'  do
-      %span.glyphicon.glyphicon-edit
-      Edit
-    = link_to contact_path(contact), method: 'delete', class: 'btn btn-danger', confirm: 'Are you sure you want to delete the contact?' do
-      Delete
-      %span.glyphicon.glyphicon-remove
+    - if current_user.is_admin?
+      =link_to edit_contact_path(contact), class: 'btn btn-primary'  do
+        %span.glyphicon.glyphicon-edit
+        Edit
+    - if current_user.is_admin?
+      = link_to contact_path(contact), method: 'delete', class: 'btn btn-danger', confirm: 'Are you sure you want to delete the contact?' do
+        Delete
+        %span.glyphicon.glyphicon-remove
