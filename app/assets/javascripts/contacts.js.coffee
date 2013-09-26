@@ -34,7 +34,7 @@ $('#tags-input').keypress (event) ->
     
 $('.remove-tag').on 'click', removeTag
 
-$("#contacts-filters #filters_countries_code, #contacts-filters #filters_organizations, #contacts-filters #filters_political_positions, #contacts-filters #filters_level_of_trust, #contacts-filters #filters_tags").chosen()
+$("#contacts-filters #filters_countries_code, #contacts-filters #filters_organizations, #contacts-filters #filters_political_positions, #contacts-filters #filters_level_of_trust, #contacts-filters #filters_tags, #contacts-filters #cols").chosen()
 
 $('#export-to-excel-button').click (event) ->
   event.preventDefault()

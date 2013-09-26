@@ -25,6 +25,10 @@ class User < ActiveRecord::Base
     roles.first.present? ? roles.first.name : 'user_own'
   end
   
+  def all_countries?
+    has_role?(:admin) || has_role?(:user_all)
+  end
+  
   private
   
   def set_default_role
