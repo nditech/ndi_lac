@@ -3,48 +3,50 @@
     %h3 Filters
   = form_tag contacts_search_index_path, id: 'filters-contacts-form' do
     .col-lg-9
-      .filter-row
-        .col-lg-3
-          %label First Name
-          = text_field_tag 'filters[first_name]', params[:filters][:first_name], class: 'form-control'
-        .col-lg-3
-          %label Last Name
-          = text_field_tag 'filters[last_name]', params[:filters][:last_name], class: 'form-control'
-        .col-lg-3
-          %label Email
-          = text_field_tag 'filters[email]', params[:filters][:email], class: 'form-control'
-        .col-lg-3
-          %label Country
-          - if current_user.all_countries?
-            = select_tag "filters[countries_code]", 
-                options_for_select(Carmen::Country.all.map {|country| [country.name, country.code]}, params[:filters][:countries_code]), 
-                multiple: true, include_blank: true, class: 'form-control'
+      .border-box
+        .filter-row
+          .col-lg-3
+            %label First Name
+            = text_field_tag 'filters[first_name]', params[:filters][:first_name], class: 'form-control'
+          .col-lg-3
+            %label Last Name
+            = text_field_tag 'filters[last_name]', params[:filters][:last_name], class: 'form-control'
+          .col-lg-3
+            %label Email
+            = text_field_tag 'filters[email]', params[:filters][:email], class: 'form-control'
+          .col-lg-3
+            %label Country
+            - if current_user.all_countries?
+              = select_tag "filters[countries_code]", 
+                  options_for_select(Carmen::Country.all.map {|country| [country.name, country.code]}, params[:filters][:countries_code]), 
+                  multiple: true, include_blank: true, class: 'form-control'
 
-          - else
-            %br
-            %strong=Carmen::Country.coded(current_user.country_code).name
-            =hidden_field_tag 'filters[countries_code]', current_user.country_code
-      .filter-row
-        .col-lg-3
-          %label Organization
-          = select_tag "filters[organizations]", 
-              options_for_select(Organization.all.map {|organization| [organization.name, organization.id]}, params[:filters][:organizations]), 
-              multiple: true, include_blank: true, class: 'form-control'
-        .col-lg-3
-          %label Political position
-          = select_tag "filters[political_positions]", 
-              options_for_select(Contact::POLITICAL_POSITIONS.map {|position| [position.last.humanize, position.first]}, params[:filters][:political_positions]), 
-              multiple: true, include_blank: true, class: 'form-control'
-        .col-lg-3
-          %label Level of trust
-          = select_tag "filters[level_of_trust]", 
-              options_for_select([1,2,3,4,5], params[:filters][:level_of_trust]), 
-              multiple: true, include_blank: true, class: 'form-control'
-        .col-lg-3
-          %label Tags
-          = select_tag "filters[tags]", 
-              options_for_select(ActsAsTaggableOn::Tag.all.map {|tag| tag.name}, params[:filters][:tags]), 
-              multiple: true, include_blank: true, class: 'form-control'
+            - else
+              %br
+              %strong=Carmen::Country.coded(current_user.country_code).name
+              =hidden_field_tag 'filters[countries_code]', current_user.country_code
+      .border-box
+        .filter-row
+          .col-lg-3
+            %label Organization
+            = select_tag "filters[organizations]", 
+                options_for_select(Organization.all.map {|organization| [organization.name, organization.id]}, params[:filters][:organizations]), 
+                multiple: true, include_blank: true, class: 'form-control'
+          .col-lg-3
+            %label Political position
+            = select_tag "filters[political_positions]", 
+                options_for_select(Contact::POLITICAL_POSITIONS.map {|position| [position.last.humanize, position.first]}, params[:filters][:political_positions]), 
+                multiple: true, include_blank: true, class: 'form-control'
+          .col-lg-3
+            %label Level of trust
+            = select_tag "filters[level_of_trust]", 
+                options_for_select([1,2,3,4,5], params[:filters][:level_of_trust]), 
+                multiple: true, include_blank: true, class: 'form-control'
+          .col-lg-3
+            %label Tags
+            = select_tag "filters[tags]", 
+                options_for_select(ActsAsTaggableOn::Tag.all.map {|tag| tag.name}, params[:filters][:tags]), 
+                multiple: true, include_blank: true, class: 'form-control'
 
       .filter-row
         .col-lg-12
@@ -63,7 +65,8 @@
             Export to PDF
           
     .col-lg-3
-      %label Columns to show
-      = select_tag 'cols', cols_to_options(params[:cols]), multiple: true, class: 'form-control'
+      .border-box
+        %label Columns to show
+        = select_tag 'cols', cols_to_options(params[:cols]), multiple: true, class: 'form-control'
     
       

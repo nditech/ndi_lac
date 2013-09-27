@@ -1,0 +1,87 @@
+%h1
+  = @contact.name
+  %small
+    = link_to contacts_path, class: 'btn btn-primary pull-right' do
+      %span.glyphicon.glyphicon-arrow-left
+      Return
+
+%h4 Personal Information
+
+%dl.dl-horizontal
+  %dt First Name:
+  %dd= @contact.first_name
+  
+  %dt Last Name:
+  %dd= @contact.last_name
+  
+  %dt Email:
+  %dd= @contact.email
+  
+  %dt Address:
+  %dd
+    = @contact.address
+    %br
+    = @contact.address_2
+  
+  %dt Country:
+  %dd
+    - country_code = @contact.country_code
+    - country = Carmen::Country.coded(country_code) if country_code.present?
+    = "#{country.name} (#{country_code})" if country.present?
+  
+  %dt Region/State:
+  %dd= "#{country.subregions.coded(@contact.state_code).name} (#{@contact.state_code})" if @contact.state_code.present?
+  
+  %dt City:
+  %dd= @contact.city
+  
+  %dt Telephone:
+  %dd= @contact.telephone
+  
+  %dt Cellphone:
+  %dd= @contact.cellphone
+
+%h4 Political Information
+
+%dl.dl-horizontal
+  %dt Organization:
+  %dd= @contact.organization.name if @contact.organization
+  
+  %dt Position within org.:
+  %dd= @contact.position
+  
+  %dt Political position:
+  %dd= Contact::POLITICAL_POSITIONS[@contact.political_position.to_s].humanize if @contact.political_position
+  
+  %dt Level of trust:
+  %dd= @contact.level_trust
+  
+  %dt tags:
+  %dd
+    - @contact.tags.each do |tag|
+      %span.label.label-primary
+        = tag.name
+- if current_user.is_admin?
+  
+  %h4 History of changes
+
+
+  %table.table.table-hover.table-bordered
+    %thead
+      %tr
+        %th Field
+        %th Previous value
+        %th Final value
+        %th Author
+        %th Date
+    %tbody
+      - @contact.audits.each do |audit|
+        - audit.audited_changes.each do |audited_change|
+          - if audited_change.first !='tag_list'
+            %tr
+              %td= audited_change.first.humanize
+              %td= audited_change.last.first
+              %td= audited_change.last.last
+              %td= audit.user.email if audit.user
+              %td= audit.created_at
+  

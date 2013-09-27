@@ -1,6 +1,10 @@
 class ContactsController < ApplicationController
   load_and_authorize_resource
   
+  def show
+    @contact = Contact.find params[:id]
+  end
+  
   def index
     @contacts = if current_user.all_countries?
        Contact.all

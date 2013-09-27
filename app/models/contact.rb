@@ -1,4 +1,5 @@
 class Contact < ActiveRecord::Base
+  audited
   
   belongs_to :organization
   
