@@ -11,10 +11,11 @@ module ContactsHelper
        ['City', 'city'],
        ['Telephone', 'telephone'],
        ['Cellphone', 'cellphone'],
-       ['Organization', 'organization.name'],
+       ['Organization', 'organization'],
        ['Position', 'position'],
        ['Political position', 'political_position'],
-       ['Level of trust', 'level_trust']
+       ['Level of trust', 'level_trust'],
+       ['Tags', 'tags'],
      ],
     selected)
     

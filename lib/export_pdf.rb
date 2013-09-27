@@ -18,6 +18,10 @@ class ExportPdf < Prawn::Document
             else
               text "#{col.humanize}: N/A"
             end
+          elsif col == 'tags'
+            text "#{col.humanize}: #{contact.tag_list}"
+          elsif col == 'organization'
+            text "#{col.humanize}: #{contact.organization.name if contact.organization.present?}"
           else
             text "#{col.humanize}: #{contact.send col}"
           end

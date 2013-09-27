@@ -6,6 +6,12 @@
         - if country_code.present?
           =Carmen::Country.coded(country_code).name
           = "(#{country_code})"
+      - elsif column == 'tags'
+        - contact.tags.each do |tag|
+          %span.label.label-primary
+            = tag.name
+      - elsif column == 'organization'
+        = contact.organization.name if contact.organization.present?
       -else
         = contact.send column
   %td

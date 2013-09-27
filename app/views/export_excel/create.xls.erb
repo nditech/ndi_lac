@@ -23,6 +23,10 @@
             <% else %>
               <Cell><Data ss:Type="String"></Data></Cell>
             <% end %>
+          <% elsif col == 'tags' %>
+            <Cell><Data ss:Type="String"><%= contact.tag_list%></Data></Cell>
+          <% elsif col == 'organization' %>
+            <Cell><Data ss:Type="String"><%= contact.organization.name if contact.organization.present? %></Data></Cell>
           <% else %>
             <Cell><Data ss:Type="String"><%= contact.send(col) %></Data></Cell>
           <% end %>
