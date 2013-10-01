@@ -20,6 +20,7 @@ role :web, "198.211.104.120"                          # Your HTTP server, Apache
 role :app, "198.211.104.120"
 role :db, "198.211.104.120", primary: true
 set :user, "red-innovadores"
+set :keep_releases, 5
 
 set :normalize_asset_timestamps, false
 set :bundle_cmd, "/home/red-innovadores/.rbenv/shims/bundle"

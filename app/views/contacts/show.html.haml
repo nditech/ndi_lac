@@ -100,7 +100,7 @@
 
 %dl.dl-horizontal
   %dt Created at:
-  %dd= @contact.audits.first.user.email if @contact.audits.first.user.present?
+  %dd= @contact.audits.first.user.email if @contact.audits.first && @contact.audits.first.user.present?
 
   %dt Created at:
   %dd= @contact.created_at
@@ -109,7 +109,7 @@
 
 %dl.dl-horizontal
   %dt updated at:
-  %dd= @contact.audits.last.user.email if @contact.audits.first.user.present?
+  %dd= @contact.audits.last.user.email if @contact.audits.first && @contact.audits.first.user.present?
 
   %dt updated at:
   %dd= @contact.updated_at
