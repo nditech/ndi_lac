@@ -130,6 +130,11 @@
         %tr
           %td= audit.user.email if audit.user
           %td= audit.created_at
-          %td= audit.audited_changes
+          %td
+            - audit.audited_changes.each do |audit_change|
+              - if audit_change.last.is_a? Array
+                ="#{audit_change.first.humanize} change #{audit_change.last.first} to #{audit_change.last.last},"
+              - else
+                ="#{audit_change.first.humanize} change to #{audit_change.last},"
               
   

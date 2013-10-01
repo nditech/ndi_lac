@@ -18,7 +18,7 @@ set :deploy_via, :remote_cache
 set :branch, "master"
 role :web, "198.211.104.120"                          # Your HTTP server, Apache/etc
 role :app, "198.211.104.120"
-role :db, "198.211.104.120"
+role :db, "198.211.104.120", primary: true
 set :user, "red-innovadores"
 
 set :normalize_asset_timestamps, false
