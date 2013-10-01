@@ -12,6 +12,16 @@
             = tag.name
       - elsif column == 'organization'
         = contact.organization.name if contact.organization.present?
+      - elsif column == 'emails'
+        -contact.emails.each do |email|
+          %strong= "#{email.kind.humanize}:"
+          = email.email
+          %br
+      - elsif column == 'telephones'
+        - contact.telephones.each do |telephone|
+          %strong= "#{telephone.kind.humanize}:"
+          = telephone.number
+          %br
       -else
         = contact.send column
   %td

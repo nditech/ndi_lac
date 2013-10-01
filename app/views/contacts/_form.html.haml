@@ -13,9 +13,23 @@
         = form.text_field :last_name, class: 'form-control', required: true
 
     .form-group
-      %label.col-lg-2.control-label Email:
+      %label.col-lg-2.control-label Genre:
       .col-lg-10
-        = form.email_field :email, class: 'form-control', required: true
+        = form.select :genre, Contact::GENRE.map {|genre| [genre.humanize, genre]}, {prompt: 'Please select one'}, {class: 'form-control'}
+
+    .form-group
+      %label.col-lg-2.control-label Twitter:
+      .col-lg-10
+        = form.text_field :twitter, class: 'form-control'
+
+    .form-group
+      %label.col-lg-2.control-label Facebook:
+      .col-lg-10
+        = form.text_field :facebook, class: 'form-control'
+
+
+  %fieldset
+    %legend Address
 
     .form-group
       %label.col-lg-2.control-label Address:
@@ -23,8 +37,7 @@
         = form.text_field :address, class: 'form-control'
 
     .form-group
-      %label.col-lg-2.control-label Address line 2:
-      .col-lg-10
+      .col-lg-10.col-lg-offset-2
         = form.text_field :address_2, class: 'form-control'
 
     .form-group
@@ -44,15 +57,58 @@
       .col-lg-10
         = form.text_field :city, class: 'form-control'
 
+  %fieldset#phones-sets
+    %legend Telephones
+    .col-lg-12
+      = link_to '#', class: 'btn btn-primary', id: 'add-phone-button' do
+        %span.glyphicon.glyphicon-plus
+        Add Telephone
+    = form.fields_for :telephones do |telephone_form|
+      .form-group
+        %label.col-lg-2.control-label Phone type:
+        .col-lg-3
+          = telephone_form.select :kind, Telephone::TYPES.map {|phone_type| [phone_type.humanize, phone_type]}, {prompt: 'Please select one'}, {class: 'form-control'}
+        %label.col-lg-2.control-label Phone number:
+        .col-lg-3
+          = telephone_form.telephone_field :number, {class: 'form-control'}
+        .col-lg-2
+          = telephone_form.label '_destroy', 'Remove Phone', class: 'control-label'
+          = telephone_form.check_box '_destroy', {}, true          
+
+  %fieldset#emails-sets
+    %legend Emails
+    .col-lg-12
+      = link_to '#', class: 'btn btn-primary', id: 'add-email-button' do
+        %span.glyphicon.glyphicon-plus
+        Add Email
+    = form.fields_for :emails do |email_form|
+      .form-group
+        %label.col-lg-2.control-label Email type:
+        .col-lg-3
+          = email_form.select :kind, Email::TYPES.map {|email_type| [email_type.humanize, email_type]}, {prompt: 'Please select one'}, {class: 'form-control'}
+        %label.col-lg-2.control-label Email:
+        .col-lg-3
+          = email_form.email_field :email, {class: 'form-control'}
+        .col-lg-2
+          = email_form.label '_destroy', 'Remove Email', class: 'control-label'
+          = email_form.check_box '_destroy', {}, true          
+
+  %fieldset
+    %legend NDI Relationship
     .form-group
-      %label.col-lg-2.control-label Telephone:
+      = form.label :ndi_consultant, 'Consultant', class: 'control-label col-lg-2'
       .col-lg-10
-        = form.telephone_field :telephone, class: 'form-control', required: true
+        = form.check_box :ndi_consultant
 
     .form-group
-      %label.col-lg-2.control-label Cellphone:
+      = form.label :probono, 'Pro bono', class: 'control-label col-lg-2'
       .col-lg-10
-        = form.telephone_field :cellphone, class: 'form-control'
+        = form.check_box :probono
+
+    .form-group
+      %label.col-lg-2.control-label Level of trust:
+      .col-lg-10
+        = form.select :level_trust, [1,2,3,4,5], {prompt: 'Please select one'}, {class: 'form-control'}
 
 
   %fieldset
@@ -75,11 +131,6 @@
         = form.select :political_position, Contact::POLITICAL_POSITIONS.map {|position| [position.last.humanize, position.first]}, {prompt: 'Please select one'}, {class: 'form-control'}
 
     .form-group
-      %label.col-lg-2.control-label Level of trust:
-      .col-lg-10
-        = form.select :level_trust, [1,2,3,4,5], {prompt: 'Please select one'}, {class: 'form-control'}
-  
-    .form-group
       %label.col-lg-2.control-label Tags:
       .col-lg-10
         .tag_list
@@ -92,3 +143,45 @@
         = form.hidden_field :tag_list
 
   = form.submit class: 'btn btn-primary'
+
+<script id="telephone-template" type="text/x-handlebars-template">
+<div class="form-group">
+<label class="col-lg-2 control-label">Phone type:</label>
+<div class="col-lg-3">
+<select class="form-control" id="contact_telephones_attributes_{{index}}_kind" name="contact[telephones_attributes][{{index}}][kind]"><option value="">Please select one</option>
+<option value="cellphone">Cellphone</option>
+<option value="home">Home</option>
+<option value="personal">Personal</option>
+<option value="work">Work</option>
+<option value="other">Other</option></select>
+</div>
+<label class="col-lg-2 control-label">Phone number:</label>
+<div class="col-lg-3">
+<input class="form-control" id="contact_telephones_attributes_{{index}}_number" name="contact[telephones_attributes][{{index}}][number]" type="tel">
+</div>
+<div class="col-lg-2">
+<label class="control-label" for="contact_telephones_attributes_{{index}}__destroy">Remove Phone</label>
+<input name="contact[telephones_attributes][{{index}}][_destroy]" type="hidden" value="0"><input id="contact_telephones_attributes_{{index}}__destroy" name="contact[telephones_attributes][{{index}}][_destroy]" type="checkbox" value="true">
+</div>
+</div>
+</script>
+
+<script id="email-template" type="text/x-handlebars-template">
+<div class="form-group">
+<label class="col-lg-2 control-label">Email type:</label>
+<div class="col-lg-3">
+<select class="form-control" id="contact_emails_attributes_{{index}}_kind" name="contact[emails_attributes][{{index}}][kind]"><option value="">Please select one</option>
+<option value="personal">Personal</option>
+<option value="work">Work</option>
+<option value="other">Other</option></select>
+</div>
+<label class="col-lg-2 control-label">Email:</label>
+<div class="col-lg-3">
+<input class="form-control" id="contact_emails_attributes_{{index}}_email" name="contact[emails_attributes][{{index}}][email]" type="email">
+</div>
+<div class="col-lg-2">
+<label class="control-label" for="contact_emails_attributes_{{index}}__destroy">Remove Email</label>
+<input name="contact[emails_attributes][{{index}}][_destroy]" type="hidden" value="0"><input id="contact_emails_attributes_{{index}}__destroy" name="contact[emails_attributes][{{index}}][_destroy]" type="checkbox" value="true">
+</div>
+</div>
+</script>

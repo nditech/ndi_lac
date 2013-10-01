@@ -10,16 +10,17 @@ module SolrSearch
           string :last_name, stored: true do
             last_name.downcase
           end
-          string :email, stored: true do
-            email.downcase
+          string :emails, stored: true, multiple: true do
+            emails.map &:email
           end
           string :address,  stored: true
           string :address_2,  stored: true
           string :country_code
           string :state_code
           string :city, stored: true
-          string :telephone, stored: true
-          string :cellphone, stored: true
+          string :telephones, stored: true, multiple: true do
+            telephones.map &:number
+          end
           integer :organization_id, stored: true
           string :position, stored: true
           integer :political_position, stored: true

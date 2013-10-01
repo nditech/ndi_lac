@@ -2,6 +2,16 @@ class Contact < ActiveRecord::Base
   audited
   
   belongs_to :organization
+  has_many :telephones, dependent: :destroy
+  has_many :emails, dependent: :destroy
+  
+  accepts_nested_attributes_for :telephones, 
+      allow_destroy: true, 
+      reject_if: :all_blank
+
+  accepts_nested_attributes_for :emails, 
+      :allow_destroy => true,
+      reject_if: :all_blank
   
   include SolrSearch::Contacts
   
@@ -14,6 +24,11 @@ class Contact < ActiveRecord::Base
     '4' => 'center-right',
     '5' => 'right'
   }
+  
+  GENRE = [
+    'female',
+    'male'
+  ]
   
   def name
     "#{first_name} #{last_name}"

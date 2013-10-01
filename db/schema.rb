@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130926175802) do
+ActiveRecord::Schema.define(version: 20131001091550) do
 
   create_table "audits", force: true do |t|
     t.integer  "auditable_id"
@@ -37,11 +37,8 @@ ActiveRecord::Schema.define(version: 20130926175802) do
   create_table "contacts", force: true do |t|
     t.string   "first_name"
     t.string   "last_name"
-    t.string   "email"
     t.string   "country_code"
     t.string   "state_code"
-    t.string   "telephone"
-    t.string   "cellphone"
     t.string   "position"
     t.integer  "political_position"
     t.string   "address"
@@ -49,6 +46,20 @@ ActiveRecord::Schema.define(version: 20130926175802) do
     t.string   "city"
     t.integer  "level_trust"
     t.integer  "organization_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "contacted_by"
+    t.string   "genre"
+    t.string   "twitter"
+    t.string   "facebook"
+    t.boolean  "ndi_consultant"
+    t.boolean  "probono"
+  end
+
+  create_table "emails", force: true do |t|
+    t.string   "email"
+    t.string   "kind"
+    t.integer  "contact_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -90,6 +101,14 @@ ActiveRecord::Schema.define(version: 20130926175802) do
 
   create_table "tags", force: true do |t|
     t.string "name"
+  end
+
+  create_table "telephones", force: true do |t|
+    t.string   "number"
+    t.string   "kind"
+    t.integer  "contact_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "users", force: true do |t|

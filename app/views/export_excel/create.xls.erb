@@ -27,6 +27,10 @@
             <Cell><Data ss:Type="String"><%= contact.tag_list%></Data></Cell>
           <% elsif col == 'organization' %>
             <Cell><Data ss:Type="String"><%= contact.organization.name if contact.organization.present? %></Data></Cell>
+          <% elsif col == 'emails' %>
+            <Cell><Data ss:Type="String"><% contact.emails.each do |email| %><%= "#{email.kind.humanize}: #{email.email} \n"%><% end %></Data></Cell>
+          <% elsif col == 'telephones' %>
+            <Cell><Data ss:Type="String"><% contact.telephones.each do |telephone| %><%= "#{telephone.kind.humanize}: #{telephone.number},"%><% end %></Data></Cell>
           <% else %>
             <Cell><Data ss:Type="String"><%= contact.send(col) %></Data></Cell>
           <% end %>

@@ -54,3 +54,14 @@ $('#export-to-pdf-button').click (event) ->
   exportExcelForm = $('form#filters-contacts-form').clone()
   exportExcelForm.attr('action','/export_pdf.pdf').submit()
 
+$('a#add-phone-button').click (event) ->
+  event.preventDefault();
+  newIndex = $("fieldset#phones-sets input[name*=number]").length;
+  template = Handlebars.compile($("#telephone-template").html())
+  $('fieldset#phones-sets').append(template({index: newIndex }));
+
+$('a#add-email-button').click (event) ->
+  event.preventDefault();
+  newIndex = $("fieldset#emails-sets input[name*='[email]']").length;
+  template = Handlebars.compile($("#email-template").html())
+  $('fieldset#emails-sets').append(template({index: newIndex }));

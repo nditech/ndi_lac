@@ -12,11 +12,13 @@ class ContactsController < ApplicationController
       Contact.where country_code: current_user.country_code
     end
     params[:filters] = {}
-    params[:cols] = ['first_name', 'last_name', 'email', 'telephone']
+    params[:cols] = ['first_name', 'last_name', 'emails', 'telephones']
   end
   
   def new
     @contact = Contact.new
+    @contact.telephones.new
+    @contact.emails.new
   end
   
   def create
@@ -30,6 +32,8 @@ class ContactsController < ApplicationController
   
   def edit
     @contact = Contact.find params[:id]
+    @contact.telephones.new if @contact.telephones.empty?
+    @contact.emails.new if @contact.emails.empty?
   end
   
   def update
@@ -59,7 +63,19 @@ class ContactsController < ApplicationController
       :position,
       :political_position,
       :level_trust,
-      :tag_list
+      :tag_list,
+      telephones_attributes: [
+        :kind, 
+        :number,
+        :_destroy,
+        :id
+      ],
+      emails_attributes: [
+        :email,
+        :kind,
+        :id,
+        :_destroy
+      ]
     )
   end
 end
