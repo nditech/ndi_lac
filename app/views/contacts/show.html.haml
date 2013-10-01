@@ -14,9 +14,18 @@
   %dt Last Name:
   %dd= @contact.last_name
   
-  %dt Email:
-  %dd= @contact.email
+  %dt Genre:
+  %dd= @contact.genre.try :humanize
   
+  %dt Twitter:
+  %dd= @contact.twitter
+  
+  %dt Facebook:
+  %dd= @contact.facebook
+
+%h4 Address
+
+%dl.dl-horizontal
   %dt Address:
   %dd
     = @contact.address
@@ -34,12 +43,40 @@
   
   %dt City:
   %dd= @contact.city
+
+%h4 Telephones
+
+%dl.dl-horizontal
+  - @contact.telephones.each do |telephone|
+    %dt= "#{telephone.kind.humanize}:"
+    %dd= telephone.number
+
+%h4 Emails
+
+%dl.dl-horizontal
+  - @contact.emails.each do |email|
+    %dt= "#{email.kind.humanize}:"
+    %dd= email.email
+
+%h4 NDI Relationship
+
+%dl.dl-horizontal
+  %dt Consultant:
+  %dd
+    - if @contact.ndi_consultant
+      %span.glyphicon.glyphicon-ok.ok-color
+    - else
+      %span.glyphicon.glyphicon-remove.not-color
+
+  %dt Pro bono:
+  %dd
+    - if @contact.probono
+      %span.glyphicon.glyphicon-ok.ok-color
+    - else
+      %span.glyphicon.glyphicon-remove.not-color
   
-  %dt Telephone:
-  %dd= @contact.telephone
-  
-  %dt Cellphone:
-  %dd= @contact.cellphone
+  %dt Level of trust:
+  %dd= @contact.level_trust
 
 %h4 Political Information
 
@@ -53,35 +90,46 @@
   %dt Political position:
   %dd= Contact::POLITICAL_POSITIONS[@contact.political_position.to_s].humanize if @contact.political_position
   
-  %dt Level of trust:
-  %dd= @contact.level_trust
-  
   %dt tags:
   %dd
     - @contact.tags.each do |tag|
       %span.label.label-primary
         = tag.name
+
+%h4 Cretion
+
+%dl.dl-horizontal
+  %dt Created at:
+  %dd= @contact.audits.first.user.email if @contact.audits.first.user.present?
+
+  %dt Created at:
+  %dd= @contact.created_at
+
+%h4 Last Update
+
+%dl.dl-horizontal
+  %dt updated at:
+  %dd= @contact.audits.last.user.email if @contact.audits.first.user.present?
+
+  %dt updated at:
+  %dd= @contact.updated_at
+
 - if current_user.is_admin?
   
-  %h4 History of changes
+  %h4 Updates history
 
 
   %table.table.table-hover.table-bordered
     %thead
       %tr
-        %th Field
-        %th Previous value
-        %th Final value
-        %th Author
-        %th Date
+        %th Apdated by
+        %th Apdated at
+        %th Changes
     %tbody
       - @contact.audits.each do |audit|
-        - audit.audited_changes.each do |audited_change|
-          - if audited_change.first !='tag_list'
-            %tr
-              %td= audited_change.first.humanize
-              %td= audited_change.last.first
-              %td= audited_change.last.last
-              %td= audit.user.email if audit.user
-              %td= audit.created_at
+        %tr
+          %td= audit.user.email if audit.user
+          %td= audit.created_at
+          %td= audit.audited_changes
+              
   
