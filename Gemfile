@@ -37,5 +37,4 @@ end
 
 group :production do
   gem 'puma'
-  gem 'capistrano-puma', require: false
 end
