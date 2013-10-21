@@ -1,4 +1,5 @@
 require "bundler/capistrano"
+require 'puma/capistrano'
 
 set :application, "ndi_lac"
 set :repository,  "git@github.com:parbros/ndi_lac.git"
@@ -37,24 +38,24 @@ namespace :deploy do
   end
 end
 
-namespace :puma do
-  task :start, :role => :app do
-    run "cd #{release_path}/ && #{bundle_cmd} exec puma -C config/puma.rb"
-  end
-  
-  task :stop, :role => :app do
-    run "cd #{release_path}/ && #{bundle_cmd} exec puma -C config/puma.rb stop"
-  end
-  
-  task :restart, :role => :app do
-    run "cd #{release_path}/ && #{bundle_cmd} exec puma -C config/puma.rb restart"
-  end
-end
+# namespace :puma do
+#   task :start, :role => :app do
+#     run "cd #{release_path}/ && #{bundle_cmd} exec puma -C config/puma.rb"
+#   end
+#   
+#   task :stop, :role => :app do
+#     run "cd #{release_path}/ && #{bundle_cmd} exec puma -C config/puma.rb stop"
+#   end
+#   
+#   task :restart, :role => :app do
+#     run "cd #{release_path}/ && #{bundle_cmd} exec puma -C config/puma.rb restart"
+#   end
+# end
 
 
 after "deploy:finalize_update", "db:db_config"
 after "deploy:finalize_update", "deploy:precompile"
 
-after "deploy:start",          "puma:start"
-after "deploy:stop",           "puma:stop"
-after "deploy:restart",        "puma:restart"
+# after "deploy:start",          "puma:start"
+# after "deploy:stop",           "puma:stop"
+# after "deploy:restart",        "puma:restart"
