@@ -1,0 +1,58 @@
+= form_for @report, html: {class: 'form-horizontal cmxform'} do |form|
+  .form-group
+    %label.col-lg-2.control-label Name:
+    .col-lg-10
+      = form.text_field :name, class: 'form-control', required: true, minlength: 2
+  
+  .form-group
+    %label.col-lg-2.control-label Description:
+    .col-lg-10
+      = form.text_field :description, class: 'form-control', required: true, minlength: 2
+      = form.text_area :contact_ids
+
+  = form.submit class: 'btn btn-primary'
+
+= render partial: 'contacts_search'
+
+.row
+  .col-lg-6
+    %h4 
+      Search Results
+      %small
+        %a#add-all-button.btn.btn-success.pull-right
+          %span.glyphicon.glyphicon-plus
+          Add All
+    %table#contacts-search-results.table.table-hover.table-bordered
+      %thead
+        %tr
+          %th Name
+          %th Actions
+      %tbody
+
+  .col-lg-6
+    %h4 Reports Contact
+    %table#contacts-in-report.table.table-hover.table-bordered
+      %thead
+        %tr
+          %th Name
+          %th Actions
+      %tbody
+            
+
+<script id="contact-result-template" type="text/x-handlebars-template">
+<tr>
+<td>{{first_name}} {{last_name}}</td>
+<td>
+<a class="btn btn-success add-to-report contact-id-{{id}}" data-contact-id="{{id}}"><span class="glyphicon glyphicon-plus"></span>Add to report</a>
+</td>
+</tr>
+</script>
+
+<script id="contact-to-report-template" type="text/x-handlebars-template">
+<tr>
+<td>{{first_name}} {{last_name}}</td>
+<td>
+<a class="btn btn-danger remove-to-report contact-id-{{id}}" data-contact-id="{{id}}"><span class="glyphicon glyphicon-remove"></span>Remove from report</a>
+</td>
+</tr>
+</script>

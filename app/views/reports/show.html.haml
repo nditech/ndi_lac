@@ -1,0 +1,14 @@
+%h1
+  = @report.name
+  %small
+    = link_to reports_path, class: 'btn btn-primary pull-right' do
+      %span.glyphicon.glyphicon-arrow-left
+      Return
+
+%table.table.table-hover.table-bordered
+  %thead
+    %tr
+      - params[:cols].each do |column|
+        %th= column.humanize
+  %tbody
+    = render partial: 'contacts/contact', collection: @report.contacts, locals: {show_actions: false}

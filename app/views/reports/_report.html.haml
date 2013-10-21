@@ -1,0 +1,11 @@
+%tr
+  %td= report.id
+  %td= report.name
+  %td= report.description
+  %td    
+    =link_to edit_report_path(report), class: 'btn btn-primary'  do
+      %span.glyphicon.glyphicon-edit
+      Edit
+    =link_to report_path(report), class: 'btn btn-success'  do
+      %span.glyphicon.glyphicon-eye-open
+      View

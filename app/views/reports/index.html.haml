@@ -1,0 +1,17 @@
+%h1 
+  Reports
+
+  %small
+    = link_to new_report_path, class: 'btn btn-primary pull-right' do
+      %span.glyphicon.glyphicon-plus
+      New Report
+
+%table.table.table-hover.table-bordered
+  %thead
+    %tr
+      %th Id
+      %th Name
+      %th Description
+      %th Actions
+  %tbody
+    = render @reports
