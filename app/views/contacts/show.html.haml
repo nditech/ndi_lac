@@ -89,17 +89,20 @@
   
   %dt Political position:
   %dd= Contact::POLITICAL_POSITIONS[@contact.political_position.to_s].humanize if @contact.political_position
-  
+
+%h4 Tags 
+
+%dl.dl-horizontal 
   %dt tags:
   %dd
     - @contact.tags.each do |tag|
       %span.label.label-primary
         = tag.name
 
-%h4 Cretion
+%h4 Creation
 
 %dl.dl-horizontal
-  %dt Created at:
+  %dt Created by:
   %dd= @contact.audits.first.user.email if @contact.audits.first && @contact.audits.first.user.present?
 
   %dt Created at:
@@ -108,10 +111,10 @@
 %h4 Last Update
 
 %dl.dl-horizontal
-  %dt updated at:
+  %dt Updated by:
   %dd= @contact.audits.last.user.email if @contact.audits.first && @contact.audits.first.user.present?
 
-  %dt updated at:
+  %dt Updated at:
   %dd= @contact.updated_at
 
 - if current_user.is_admin?
@@ -122,8 +125,8 @@
   %table.table.table-hover.table-bordered
     %thead
       %tr
-        %th Apdated by
-        %th Apdated at
+        %th Updated by
+        %th Updated at
         %th Changes
     %tbody
       - @contact.audits.each do |audit|
@@ -131,10 +134,11 @@
           %td= audit.user.email if audit.user
           %td= audit.created_at
           %td
-            - audit.audited_changes.each do |audit_change|
+            - audits = audit.audited_changes.map do |audit_change|
               - if audit_change.last.is_a? Array
-                ="#{audit_change.first.humanize} change #{audit_change.last.first} to #{audit_change.last.last},"
+                - "#{audit_change.first.humanize} change #{audit_change.last.first} to #{audit_change.last.last}"
               - else
-                ="#{audit_change.first.humanize} change to #{audit_change.last},"
+                - "#{audit_change.first.humanize} change to #{audit_change.last}"
+            = audits.to_sentence()  
               
   

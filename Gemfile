@@ -10,7 +10,6 @@ gem 'turbolinks'
 gem 'jbuilder', '~> 1.2'
 
 group :doc do
-
   gem 'sdoc', require: false
 end
 
@@ -28,6 +27,7 @@ gem 'roo'
 gem "sentry-raven", :git => "https://github.com/getsentry/raven-ruby.git"
 gem 'prawn'
 gem "audited-activerecord", git: 'git@github.com:jparbros/audited.git'
+gem 'global_phone'
 
 group :development do
   gem 'capistrano'
@@ -36,5 +36,6 @@ group :development do
 end
 
 group :production do
-  gem 'unicorn'
+  gem 'puma'
+  gem 'capistrano-puma', require: false
 end

@@ -1,11 +1,13 @@
 class User < ActiveRecord::Base
   audited
   rolify
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable,
          :recoverable, :rememberable, :trackable
-         
+  
+  has_many :reports       
   before_create :set_default_role
 
   def country_name

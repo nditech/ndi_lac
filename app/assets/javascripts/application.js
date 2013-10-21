@@ -15,4 +15,7 @@
 //= require turbolinks
 //= require bootstrap
 //= require chosen.jquery.min
+//= require jquery.validate.min
+//= require jquery.maskedinput.min
+//= require phone_formats
 //= require_tree .

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131001091550) do
+ActiveRecord::Schema.define(version: 20131021053850) do
 
   create_table "audits", force: true do |t|
     t.integer  "auditable_id"
@@ -56,6 +56,16 @@ ActiveRecord::Schema.define(version: 20131001091550) do
     t.boolean  "probono"
   end
 
+  create_table "contacts_reports", force: true do |t|
+    t.integer  "contact_id"
+    t.integer  "report_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "contacts_reports", ["contact_id"], name: "index_contacts_reports_on_contact_id", using: :btree
+  add_index "contacts_reports", ["report_id"], name: "index_contacts_reports_on_report_id", using: :btree
+
   create_table "emails", force: true do |t|
     t.string   "email"
     t.string   "kind"
@@ -74,6 +84,16 @@ ActiveRecord::Schema.define(version: 20131001091550) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "reports", force: true do |t|
+    t.integer  "user_id"
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.text     "description"
+  end
+
+  add_index "reports", ["user_id"], name: "index_reports_on_user_id", using: :btree
 
   create_table "roles", force: true do |t|
     t.string   "name"

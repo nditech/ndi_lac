@@ -1,16 +1,16 @@
-= form_for @contact, html: {class: 'form-horizontal'} do |form|
+= form_for @contact, html: {class: 'form-horizontal cmxform'} do |form|
 
   %fieldset
     %legend Personal Information
     .form-group
       %label.col-lg-2.control-label First Name:
       .col-lg-10
-        = form.text_field :first_name, class: 'form-control', required: true
+        = form.text_field :first_name, class: 'form-control', required: true, minlength: 2
     
     .form-group
       %label.col-lg-2.control-label Last Name:
       .col-lg-10
-        = form.text_field :last_name, class: 'form-control', required: true
+        = form.text_field :last_name, class: 'form-control', required: true, minlength: 2
 
     .form-group
       %label.col-lg-2.control-label Genre:
@@ -25,7 +25,7 @@
     .form-group
       %label.col-lg-2.control-label Facebook:
       .col-lg-10
-        = form.text_field :facebook, class: 'form-control'
+        = form.url_field :facebook, class: 'form-control url'
 
 
   %fieldset
@@ -70,7 +70,7 @@
           = telephone_form.select :kind, Telephone::TYPES.map {|phone_type| [phone_type.humanize, phone_type]}, {prompt: 'Please select one'}, {class: 'form-control'}
         %label.col-lg-2.control-label Phone number:
         .col-lg-3
-          = telephone_form.telephone_field :number, {class: 'form-control'}
+          = telephone_form.telephone_field :number, {class: 'form-control phone valid', pattern: '[\+]\d{2}[\(]\d{2}[\)]\d{4}[\-]\d{4}'}
         .col-lg-2
           = telephone_form.label '_destroy', 'Remove Phone', class: 'control-label'
           = telephone_form.check_box '_destroy', {}, true          
@@ -88,7 +88,7 @@
           = email_form.select :kind, Email::TYPES.map {|email_type| [email_type.humanize, email_type]}, {prompt: 'Please select one'}, {class: 'form-control'}
         %label.col-lg-2.control-label Email:
         .col-lg-3
-          = email_form.email_field :email, {class: 'form-control'}
+          = email_form.email_field :email, {class: 'form-control email'}
         .col-lg-2
           = email_form.label '_destroy', 'Remove Email', class: 'control-label'
           = email_form.check_box '_destroy', {}, true          
@@ -110,6 +110,10 @@
       .col-lg-10
         = form.select :level_trust, [1,2,3,4,5], {prompt: 'Please select one'}, {class: 'form-control'}
 
+    .form-group
+      %label.col-lg-2.control-label Contacted by:
+      .col-lg-10
+        = form.text_field :contacted_by, class: 'form-control'
 
   %fieldset
     %legend Political Information
@@ -129,6 +133,9 @@
       %label.col-lg-2.control-label Political Position:
       .col-lg-10
         = form.select :political_position, Contact::POLITICAL_POSITIONS.map {|position| [position.last.humanize, position.first]}, {prompt: 'Please select one'}, {class: 'form-control'}
+
+  %fieldset
+    %legend Tags
 
     .form-group
       %label.col-lg-2.control-label Tags:
@@ -157,7 +164,7 @@
 </div>
 <label class="col-lg-2 control-label">Phone number:</label>
 <div class="col-lg-3">
-<input class="form-control" id="contact_telephones_attributes_{{index}}_number" name="contact[telephones_attributes][{{index}}][number]" type="tel">
+<input class="form-control phone" id="contact_telephones_attributes_{{index}}_number" name="contact[telephones_attributes][{{index}}][number]" type="tel">
 </div>
 <div class="col-lg-2">
 <label class="control-label" for="contact_telephones_attributes_{{index}}__destroy">Remove Phone</label>
@@ -177,7 +184,7 @@
 </div>
 <label class="col-lg-2 control-label">Email:</label>
 <div class="col-lg-3">
-<input class="form-control" id="contact_emails_attributes_{{index}}_email" name="contact[emails_attributes][{{index}}][email]" type="email">
+<input class="form-control email" id="contact_emails_attributes_{{index}}_email" name="contact[emails_attributes][{{index}}][email]" type="email">
 </div>
 <div class="col-lg-2">
 <label class="control-label" for="contact_emails_attributes_{{index}}__destroy">Remove Email</label>

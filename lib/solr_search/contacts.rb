@@ -4,6 +4,7 @@ module SolrSearch
     def self.included(base)
       base.class_eval do
         searchable do
+          integer :id, stored: true
           string :first_name, stored: true do
             first_name.downcase
           end
@@ -32,6 +33,7 @@ module SolrSearch
         
         def self.filters(filters)
           (search do
+            with(:id).any_of(filters[:ids].split(',')) if filters[:ids].present?
             with(:first_name, filters[:first_name].downcase) if filters[:first_name].present?
             with(:last_name, filters[:last_name].downcase) if filters[:last_name].present?
             with(:email, filters[:email].downcase) if filters[:email].present?

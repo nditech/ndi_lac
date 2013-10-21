@@ -5,6 +5,11 @@ $('#contact_country_code').change ->
     $('#contact_telephone, #contact_cellphone').val("+#{data.country_code}")
     $('#region-container').html(template(data))
   )
+  $('#phones-sets input[name*=number]').phoneNumber({
+    'format': 'international',
+    'country': countryCode
+  })
+
   
 removeTag = (event) ->
   event.preventDefault()
@@ -65,3 +70,6 @@ $('a#add-email-button').click (event) ->
   newIndex = $("fieldset#emails-sets input[name*='[email]']").length;
   template = Handlebars.compile($("#email-template").html())
   $('fieldset#emails-sets').append(template({index: newIndex }));
+
+$('form#new_contact, form[id*=edit_contact]').validate();
+

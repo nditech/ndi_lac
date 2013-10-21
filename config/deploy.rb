@@ -1,5 +1,5 @@
 require "bundler/capistrano"
-require 'capistrano-unicorn'
+require 'capistrano-puma'
 
 set :application, "ndi_lac"
 set :repository,  "git@github.com:parbros/ndi_lac.git"
@@ -41,6 +41,7 @@ end
 after "deploy:finalize_update", "db:db_config"
 after "deploy:finalize_update", "deploy:precompile"
 
-after 'deploy:restart', 'unicorn:reload'    # app IS NOT preloaded
-after 'deploy:restart', 'unicorn:restart'   # app preloaded
-after 'deploy:restart', 'unicorn:duplicate' # before_fork hook implemented (zero downtime deployments)
+after "deploy:start",          "puma:start"
+after "deploy:stop",           "puma:stop"
+after "deploy:restart",        "puma:restart"
+after "deploy:create_symlink", "puma:after_symlink"
