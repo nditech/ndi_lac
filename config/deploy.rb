@@ -42,11 +42,11 @@ namespace :puma do
     run "cd #{release_path}/ && #{bundle_cmd} exec puma -C config/puma.rb"
   end
   
-  task :stop. :role => :app do
+  task :stop, :role => :app do
     run "cd #{release_path}/ && #{bundle_cmd} exec puma -C config/puma.rb stop"
   end
   
-  task :restart. :role => :app do
+  task :restart, :role => :app do
     run "cd #{release_path}/ && #{bundle_cmd} exec puma -C config/puma.rb restart"
   end
 end
