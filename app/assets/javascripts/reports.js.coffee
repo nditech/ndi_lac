@@ -3,11 +3,16 @@ $('#submit-contact-search-form-button').click (event) ->
   $('form#search-contacts-form').submit()
 
 $('form#search-contacts-form').on "ajax:success", (event, xhr, settings) ->
+  contactIds = $('textarea#report_contact_ids').val().split(",")
   contacts = jQuery.parseJSON(xhr)
   template = Handlebars.compile($("#contact-result-template").html())
+  contactsArray = []
+  $("table#contacts-search-results tbody").html("")
   $.each contacts, (index, contact) ->
-    $("table#contacts-search-results tbody").append(template(contact))
-    $("a.add-to-report.contact-id-"+contact.id).attr('disabled', 'disabled')
+    contact.disabled = (contactIds.indexOf(contact.id.toString()) >= 0)
+    contactsArray.push(template(contact))
+  if contactsArray.length > 0
+    $("table#contacts-search-results tbody").append(contactsArray)
 
 $('textarea#report_contact_ids').on 'change', () ->
   contactIds = $(@).val()
@@ -22,9 +27,12 @@ $('textarea#report_contact_ids').on 'change', () ->
       $("table#contacts-in-report tbody").html("")
       $('a.add-to-report[disabled]').removeAttr('disabled')
       if contactIds.length > 0
+        contactsArray = []
         $.each contacts, (index, contact) ->
-          $("table#contacts-in-report tbody").append(template(contact))
+          contactsArray.push(template(contact))
           $("a.add-to-report.contact-id-"+contact.id).attr('disabled', 'disabled')
+        if contactsArray.length > 0  
+          $("table#contacts-in-report tbody").append(contactsArray)
 
 $(document).on "click", "a.add-to-report", (event) ->
   event.preventDefault

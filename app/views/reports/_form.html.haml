@@ -43,7 +43,7 @@
 <tr>
 <td>{{first_name}} {{last_name}}</td>
 <td>
-<a class="btn btn-success add-to-report contact-id-{{id}}" data-contact-id="{{id}}"><span class="glyphicon glyphicon-plus"></span>Add to report</a>
+<a class="btn btn-success add-to-report contact-id-{{id}}" data-contact-id="{{id}}" {{#if disabled}}disabled="disabled"{{/if}}><span class="glyphicon glyphicon-plus"></span>Add to report</a>
 </td>
 </tr>
 </script>
