@@ -28,6 +28,7 @@ gem "sentry-raven", :git => "https://github.com/getsentry/raven-ruby.git"
 gem 'prawn'
 gem "audited-activerecord", git: 'git@github.com:jparbros/audited.git'
 gem 'global_phone'
+gem 'htmltoword'
 
 group :development do
   gem 'capistrano'

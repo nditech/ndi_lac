@@ -16,6 +16,10 @@
       %span.glyphicon.glyphicon-cloud-download
       Export to PDF
 
+    = link_to report_export_docx_path(@report, format: :docx), method: :post, class: 'btn btn-success', id: 'export-to-pdf-button' do
+      %span.glyphicon.glyphicon-cloud-download
+      Export to Word
+
 %table.table.table-hover.table-bordered
   %thead
     %tr
