@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131021053850) do
+ActiveRecord::Schema.define(version: 20131023070229) do
 
   create_table "audits", force: true do |t|
     t.integer  "auditable_id"
@@ -91,6 +91,7 @@ ActiveRecord::Schema.define(version: 20131021053850) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text     "description"
+    t.text     "columns_report"
   end
 
   add_index "reports", ["user_id"], name: "index_reports_on_user_id", using: :btree

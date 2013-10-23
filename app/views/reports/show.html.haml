@@ -5,10 +5,21 @@
       %span.glyphicon.glyphicon-arrow-left
       Return
 
+.row
+  .col-lg-12
+
+    = link_to report_export_excel_path(@report, format: :xls), method: :post, class: 'btn btn-success', id: 'export-to-excel-button' do
+      %span.glyphicon.glyphicon-cloud-download
+      Export to Excel
+
+    = link_to report_export_pdf_path(@report, format: :pdf), method: :post, class: 'btn btn-success', id: 'export-to-pdf-button' do
+      %span.glyphicon.glyphicon-cloud-download
+      Export to PDF
+
 %table.table.table-hover.table-bordered
   %thead
     %tr
-      - params[:cols].each do |column|
+      - @report.columns_report.each do |column|
         %th= column.humanize
   %tbody
-    = render partial: 'contacts/contact', collection: @report.contacts, locals: {show_actions: false}
+    = render partial: 'contact', collection: @report.contacts, locals: {columns: @report.columns_report}

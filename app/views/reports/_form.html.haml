@@ -10,6 +10,11 @@
       = form.text_field :description, class: 'form-control', required: true, minlength: 2
       = form.text_area :contact_ids
 
+  .form-group
+    %label.col-lg-2.control-label Columns:
+    .col-lg-10
+      = form.select :columns_report, cols_to_options(@report.columns_report), {}, {class: 'form-control', multiple: true}
+
   = form.submit class: 'btn btn-primary'
 
 = render partial: 'contacts_search'

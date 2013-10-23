@@ -1,5 +1,5 @@
 %tr
-  - params[:cols].each do |column|
+  - columns.each do |column|
     %td
       - if column == 'country_code'
         - country_code = contact.send(column)
@@ -23,16 +23,5 @@
           = telephone.number
           %br
       -else
+        - puts "======= #{column} ====="
         = contact.send column
-  %td
-    =link_to contact_path(contact), class: 'btn btn-success'  do
-      %span.glyphicon.glyphicon-eye-open
-      View
-    - if current_user.is_admin?
-      =link_to edit_contact_path(contact), class: 'btn btn-primary'  do
-        %span.glyphicon.glyphicon-edit
-        Edit
-    - if current_user.is_admin?
-      = link_to contact_path(contact), method: 'delete', class: 'btn btn-danger', confirm: 'Are you sure you want to delete the contact?' do
-        Delete
-        %span.glyphicon.glyphicon-remove

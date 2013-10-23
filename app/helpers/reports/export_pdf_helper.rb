@@ -1,0 +1,2 @@
+module Reports::ExportPdfHelper
+end

@@ -6,7 +6,6 @@ class ReportsController < ApplicationController
   
   def show
     @report = current_user.reports.find params[:id]
-    params[:cols] = ['first_name', 'last_name', 'emails', 'telephones']
   end
   
   def new
@@ -16,7 +15,8 @@ class ReportsController < ApplicationController
   
   def create
     @report = current_user.reports.new params[:report]
-    @report.contact_ids = report_params[:contact_ids].split(',')
+    @report.contact_ids = report_params[:contact_ids].split(',').uniq
+    @report.columns_report = @report.columns_report.reject(&:empty?)
     if @report.save
       redirect_to reports_url, notice: 'Report create successfully.'
     else
@@ -32,7 +32,9 @@ class ReportsController < ApplicationController
   def update
     @report = current_user.reports.find params[:id]
     edit_report_params = report_params
-    edit_report_params[:contact_ids] = edit_report_params[:contact_ids].split(',')
+    edit_report_params[:contact_ids] = edit_report_params[:contact_ids].split(',').uniq
+    debugger
+    edit_report_params['columns_report'] = edit_report_params['columns_report'].reject(&:empty?)
     if @report.update_attributes(edit_report_params)
       redirect_to reports_url, notice: 'Report create successfully.'
     else
@@ -46,7 +48,8 @@ class ReportsController < ApplicationController
     params.require(:report).permit(
       :name,
       :description,
-      :contact_ids
+      :contact_ids,
+      columns_report: []
     )
   end
   
