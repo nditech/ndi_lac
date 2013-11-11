@@ -72,4 +72,18 @@ $('a#add-email-button').click (event) ->
   $('fieldset#emails-sets').append(template({index: newIndex }));
 
 $('form#new_contact, form[id*=edit_contact]').validate();
+  
+onlyLetters =  (event) ->
+  keyCode = event.keyCode
+  if(keyCode  > 32 && (keyCode  < 65 || keyCode  > 90) &&(keyCode  < 97 || keyCode  > 122))
+    event.preventDefault()
 
+onlyNumbers =  (event) ->
+  keyCode = event.keyCode
+  if(keyCode  > 32 && (keyCode  < 48 || keyCode  > 57))
+    event.preventDefault()
+
+    
+$('input#contact_first_name, input#contact_last_name').keypress onlyLetters    
+
+$(document).on "keypress", "input[id*=contact_telephones]", onlyNumbers

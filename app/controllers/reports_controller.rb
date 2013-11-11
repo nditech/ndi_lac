@@ -33,7 +33,6 @@ class ReportsController < ApplicationController
     @report = current_user.reports.find params[:id]
     edit_report_params = report_params
     edit_report_params[:contact_ids] = edit_report_params[:contact_ids].split(',').uniq
-    debugger
     edit_report_params['columns_report'] = edit_report_params['columns_report'].reject(&:empty?)
     if @report.update_attributes(edit_report_params)
       redirect_to reports_url, notice: 'Report create successfully.'

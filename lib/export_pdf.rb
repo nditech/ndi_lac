@@ -1,10 +1,14 @@
 class ExportPdf < Prawn::Document
 
-  def initialize(contacts, cols)
+  def initialize(contacts, cols, labels)
     super()
     @contacts = contacts
     @cols = cols
-    render_contacts
+    if labels
+      render_labels
+    else
+      render_contacts
+    end
   end
   
   def render_contacts
@@ -45,6 +49,19 @@ class ExportPdf < Prawn::Document
       y_position = cursor
       vertical_line 100, 300, at: [10, y_position]
       # stroke_axis
+    end
+  end
+  
+  def render_labels
+    @contacts.each do |contact|
+      font_size 12 do
+        text contact.name
+        text contact.address
+        text contact.address_2
+        text "#{contact.city}, #{Carmen::Country.coded(contact.country_code).name}"
+        move_down 20
+        y_position = cursor
+      end
     end
   end
 end

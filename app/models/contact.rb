@@ -27,7 +27,8 @@ class Contact < ActiveRecord::Base
   
   GENRE = [
     'female',
-    'male'
+    'male',
+    'other'
   ]
   
   def name

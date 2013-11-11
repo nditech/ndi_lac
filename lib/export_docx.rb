@@ -1,9 +1,13 @@
 class ExportDocx
-  def initialize(contacts, cols)
+  def initialize(contacts, cols, labels = nil)
     @contacts = contacts
     @cols = cols
     @html = ["<html><head></head><body>"]
-    render_contacts
+    if labels
+      render_labels
+    else
+      render_contacts
+    end
   end
   
   def render_contacts
@@ -44,6 +48,15 @@ class ExportDocx
   
   def render
     @html.join('').to_s + "</body></html>"
+  end
+  
+  def render_labels
+    @contacts.each do |contact|
+      text contact.name
+      text contact.address
+      text contact.address_2
+      text "#{contact.city}, #{Carmen::Country.coded(contact.country_code).name}"
+    end
   end
   
 end

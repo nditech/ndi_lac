@@ -7,7 +7,7 @@ class ExportPdfController < ApplicationController
     @contacts = report.present? ? report.contacts : Contact.filters(params[:filters])
     respond_to do |format|
       format.pdf do
-        pdf = ExportPdf.new(@contacts, @cols)
+        pdf = ExportPdf.new @contacts, @cols, params[:labels]
         send_data pdf.render, filename: "export-#{Time.now.to_i}.pdf", type: "application/pdf"
       end
     end
