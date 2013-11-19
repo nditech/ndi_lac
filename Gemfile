@@ -29,6 +29,7 @@ gem 'prawn'
 gem "audited-activerecord", git: 'git@github.com:jparbros/audited.git'
 gem 'global_phone'
 gem 'htmltoword'
+gem 'phone'
 
 group :development do
   gem 'capistrano'

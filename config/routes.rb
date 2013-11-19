@@ -4,6 +4,8 @@ NdiDatabase::Application.routes.draw do
   
   match "/profile", to: 'users#profile', as: 'user_profile', via: :get
   
+  match "/contacts/validate_phone_number", to: 'contacts#validate_phone_number', as: 'validate_phone_number', via: :get
+  
   resources :contacts
   resources :organizations
   resources :users

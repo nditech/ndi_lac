@@ -59,6 +59,8 @@
 
   %fieldset#phones-sets
     %legend Telephones
+    #phone-prefix
+      %h4
     .col-lg-12
       = link_to '#', class: 'btn btn-primary', id: 'add-phone-button' do
         %span.glyphicon.glyphicon-plus
@@ -192,3 +194,14 @@
 </div>
 </div>
 </script>
+
+#country-required-modal.modal.fade
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %button.close{"type" => "button", "data-dismiss" => "modal", "aria-hidden" => "true"} &times;
+        %h4 Country Required
+      .modal-body
+        Please select a country.
+      .modal-footer
+        %button.btn.btn-default{"type" => "button", "data-dismiss" => "modal"} Close

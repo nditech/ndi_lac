@@ -2,13 +2,11 @@ $('#contact_country_code').change ->
   countryCode = $(this).val();
   template = Handlebars.compile($("#regions-template").html())
   $.get("/countries/#{countryCode }", (data) ->
-    $('#contact_telephone, #contact_cellphone').val("+#{data.country_code}")
+    $('.phone').val("+#{data.country_code}")
     $('#region-container').html(template(data))
+    $("#phone-prefix h4").html("Country code for the country you selected: +" + data.country_code)
+    $("fieldset#phones-sets").attr('data-country-code', data.country_code)
   )
-  $('#phones-sets input[name*=number]').phoneNumber({
-    'format': 'international',
-    'country': countryCode
-  })
 
   
 removeTag = (event) ->
@@ -63,15 +61,23 @@ $('a#add-phone-button').click (event) ->
   event.preventDefault();
   newIndex = $("fieldset#phones-sets input[name*=number]").length;
   template = Handlebars.compile($("#telephone-template").html())
-  $('fieldset#phones-sets').append(template({index: newIndex }));
+  countryCode = "+" + $("fieldset#phones-sets").data('country-code')
+  country = $('#contact_country_code').val()
+  
+  if country != ""
+    $(template).find(".phone").val(countryCode)
+    $('fieldset#phones-sets').append(template({index: newIndex }));
+    $(template).find(".phone").val(countryCode)
+  else
+    event.preventDefault()
+    countryRequiredError()
 
 $('a#add-email-button').click (event) ->
   event.preventDefault();
   newIndex = $("fieldset#emails-sets input[name*='[email]']").length;
   template = Handlebars.compile($("#email-template").html())
   $('fieldset#emails-sets').append(template({index: newIndex }));
-
-$('form#new_contact, form[id*=edit_contact]').validate();
+  $('form#new_contact, form[id*=edit_contact]').validate();
   
 onlyLetters =  (event) ->
   keyCode = event.keyCode
@@ -83,7 +89,29 @@ onlyNumbers =  (event) ->
   if(keyCode  > 32 && (keyCode  < 48 || keyCode  > 57))
     event.preventDefault()
 
+countryRequiredError = ->
+  $("#country-required-modal").modal()
+
+$(document).on "change", ".phone", ->
+  phoneNumber = $(this).val()
+  that = $(this)
+  $.get "/contacts/validate_phone_number", {phone_number: phoneNumber}, (data) ->
+    if data.valid == "false" || data.valid == false || data.valid == null
+      that.addClass "error"
+    else
+      that.removeClass "error"
     
 $('input#contact_first_name, input#contact_last_name').keypress onlyLetters    
 
-$(document).on "keypress", "input[id*=contact_telephones]", onlyNumbers
+# $(document).on "keypress", "input[id*=contact_telephones]", onlyNumbers
+
+$(document).on "keypress", "input[id*=contact_telephones]", (event) ->
+  keyCode = event.keyCode
+  country = $('#contact_country_code').val()
+  if country != ""
+    if(keyCode  > 32 && (keyCode  < 48 || keyCode  > 57))
+      event.preventDefault()
+  else
+    event.preventDefault()
+    countryRequiredError()
+    

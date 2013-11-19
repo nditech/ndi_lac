@@ -23,8 +23,8 @@
 
             - else
               %br
-              %strong=Carmen::Country.coded(current_user.country_code).name
-              =hidden_field_tag 'filters[countries_code]', current_user.country_code
+              %strong=Carmen::Country.coded(current_user.country_code).name if current_user.country_code
+              =hidden_field_tag 'filters[countries_code]', current_user.country_code if current_user.country_code
       .border-box
         .filter-row
           .col-lg-3
