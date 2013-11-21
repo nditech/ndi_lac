@@ -1,0 +1,17 @@
+<div class="form-group">
+  <label class="col-lg-2 control-label">Email type:</label>
+  <div class="col-lg-3">
+    <select class="form-control" id="contact_emails_attributes_{{index}}_kind" name="contact[emails_attributes][{{index}}][kind]"><option value="">Please select one</option>
+      <option value="personal">Personal</option>
+      <option value="work">Work</option>
+      <option value="other">Other</option></select>
+    </div>
+    <label class="col-lg-2 control-label">Email:</label>
+    <div class="col-lg-3">
+      <input class="form-control email" id="contact_emails_attributes_{{index}}_email" name="contact[emails_attributes][{{index}}][email]" type="email">
+    </div>
+    <div class="col-lg-2">
+      <label class="control-label" for="contact_emails_attributes_{{index}}__destroy">Remove Email</label>
+      <input name="contact[emails_attributes][{{index}}][_destroy]" type="hidden" value="0"><input id="contact_emails_attributes_{{index}}__destroy" name="contact[emails_attributes][{{index}}][_destroy]" type="checkbox" value="true">
+    </div>
+  </div>

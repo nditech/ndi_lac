@@ -5,12 +5,12 @@
     .form-group
       %label.col-lg-2.control-label First Name:
       .col-lg-10
-        = form.text_field :first_name, class: 'form-control', required: true, minlength: 2
+        = form.text_field :first_name, class: 'form-control'
     
     .form-group
       %label.col-lg-2.control-label Last Name:
       .col-lg-10
-        = form.text_field :last_name, class: 'form-control', required: true, minlength: 2
+        = form.text_field :last_name, class: 'form-control'
 
     .form-group
       %label.col-lg-2.control-label Genre:
@@ -43,13 +43,13 @@
     .form-group
       %label.col-lg-2.control-label Country:
       .col-lg-10
-        = form.country_select :country_code, {prompt: 'Please select one'}, class: 'form-control', required: true
+        = form.country_select :country_code, {prompt: 'Please select one'}, class: 'form-control'
         
     .form-group
       %label.col-lg-2.control-label Region:
       #region-container.col-lg-10
         - if @contact.country_code.present?
-          = form.select :state_code, Carmen::Country.coded(@contact.country_code).subregions.map {|region| [region.name, region.code]}, {prompt: 'Please select one'}, {class: 'form-control', required: true}
+          = form.select :state_code, Carmen::Country.coded(@contact.country_code).subregions.map {|region| [region.name, region.code]}, {prompt: 'Please select one'}, {class: 'form-control'}
           
 
     .form-group
@@ -72,7 +72,7 @@
           = telephone_form.select :kind, Telephone::TYPES.map {|phone_type| [phone_type.humanize, phone_type]}, {prompt: 'Please select one'}, {class: 'form-control'}
         %label.col-lg-2.control-label Phone number:
         .col-lg-3
-          = telephone_form.telephone_field :number, {class: 'form-control phone valid', pattern: '[\+]\d{2}[\(]\d{2}[\)]\d{4}[\-]\d{4}'}
+          = telephone_form.telephone_field :number, {class: 'form-control phone valid'}
         .col-lg-2
           = telephone_form.label '_destroy', 'Remove Phone', class: 'control-label'
           = telephone_form.check_box '_destroy', {}, true          
@@ -151,57 +151,4 @@
         
         = form.hidden_field :tag_list
 
-  = form.submit class: 'btn btn-primary'
-
-<script id="telephone-template" type="text/x-handlebars-template">
-<div class="form-group">
-<label class="col-lg-2 control-label">Phone type:</label>
-<div class="col-lg-3">
-<select class="form-control" id="contact_telephones_attributes_{{index}}_kind" name="contact[telephones_attributes][{{index}}][kind]"><option value="">Please select one</option>
-<option value="cellphone">Cellphone</option>
-<option value="home">Home</option>
-<option value="personal">Personal</option>
-<option value="work">Work</option>
-<option value="other">Other</option></select>
-</div>
-<label class="col-lg-2 control-label">Phone number:</label>
-<div class="col-lg-3">
-<input class="form-control phone" id="contact_telephones_attributes_{{index}}_number" name="contact[telephones_attributes][{{index}}][number]" type="tel">
-</div>
-<div class="col-lg-2">
-<label class="control-label" for="contact_telephones_attributes_{{index}}__destroy">Remove Phone</label>
-<input name="contact[telephones_attributes][{{index}}][_destroy]" type="hidden" value="0"><input id="contact_telephones_attributes_{{index}}__destroy" name="contact[telephones_attributes][{{index}}][_destroy]" type="checkbox" value="true">
-</div>
-</div>
-</script>
-
-<script id="email-template" type="text/x-handlebars-template">
-<div class="form-group">
-<label class="col-lg-2 control-label">Email type:</label>
-<div class="col-lg-3">
-<select class="form-control" id="contact_emails_attributes_{{index}}_kind" name="contact[emails_attributes][{{index}}][kind]"><option value="">Please select one</option>
-<option value="personal">Personal</option>
-<option value="work">Work</option>
-<option value="other">Other</option></select>
-</div>
-<label class="col-lg-2 control-label">Email:</label>
-<div class="col-lg-3">
-<input class="form-control email" id="contact_emails_attributes_{{index}}_email" name="contact[emails_attributes][{{index}}][email]" type="email">
-</div>
-<div class="col-lg-2">
-<label class="control-label" for="contact_emails_attributes_{{index}}__destroy">Remove Email</label>
-<input name="contact[emails_attributes][{{index}}][_destroy]" type="hidden" value="0"><input id="contact_emails_attributes_{{index}}__destroy" name="contact[emails_attributes][{{index}}][_destroy]" type="checkbox" value="true">
-</div>
-</div>
-</script>
-
-#country-required-modal.modal.fade
-  .modal-dialog
-    .modal-content
-      .modal-header
-        %button.close{"type" => "button", "data-dismiss" => "modal", "aria-hidden" => "true"} &times;
-        %h4 Country Required
-      .modal-body
-        Please select a country.
-      .modal-footer
-        %button.btn.btn-default{"type" => "button", "data-dismiss" => "modal"} Close
+  = form.submit class: 'btn btn-primary disabled'

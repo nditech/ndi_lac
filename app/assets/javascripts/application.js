@@ -17,4 +17,12 @@
 //= require chosen.jquery.min
 //= require jquery.validate.min
 //= require jquery.maskedinput.min
+//= require handlebars
+//= require namespace
+//= require_tree ./templates
 //= require_tree .
+
+$(function() {
+  App.Errors.init();
+  App.Contacts.init();
+})

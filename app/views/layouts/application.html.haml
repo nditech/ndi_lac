@@ -26,7 +26,8 @@
                   = link_to 'Edit Profile', user_profile_path
                 %li
                   =link_to 'Sign Out', destroy_user_session_path, method: :delete
-
+    #errors-container
+      
     .container
       = yield
 

@@ -30,6 +30,7 @@ gem "audited-activerecord", git: 'git@github.com:jparbros/audited.git'
 gem 'global_phone'
 gem 'htmltoword'
 gem 'phone'
+gem 'handlebars_assets'
 
 group :development do
   gem 'capistrano'
