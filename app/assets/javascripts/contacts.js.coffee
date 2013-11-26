@@ -24,7 +24,7 @@ App.Contacts =
     @$$$.addPhoneBtn = $('a#add-phone-button')
     @$$$.formInputs = $('form input, form select')
     @$$$.formSubmitBtn =$('form input[type=submit]')
-    @$$$.form =$('form')
+    @$$$.form =$('form#new_contact, form#edit_contact')
     
   
   bindingElements: ->
