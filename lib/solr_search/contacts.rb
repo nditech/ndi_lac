@@ -48,6 +48,8 @@ module SolrSearch
             with(:political_position).any_of(filters[:political_positions]) if filters[:political_positions].present?
             with(:level_trust).any_of(filters[:level_of_trust]) if filters[:level_of_trust].present?
             with(:tags).any_of(filters[:tags]) if filters[:tags].present?
+            
+            paginate :page => filters[:page], :per_page => 50
           end).results
         end
       end

@@ -31,7 +31,7 @@ gem 'global_phone'
 gem 'htmltoword'
 gem 'phone'
 gem 'handlebars_assets'
-gem 'will_paginate', '~> 3.0'
+gem 'kaminari'
 
 group :development do
   gem 'capistrano'

@@ -1,7 +1,4 @@
 class Contact < ActiveRecord::Base
-  
-  self.per_page = 50
-
   audited
   
   belongs_to :organization
