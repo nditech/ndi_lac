@@ -23,7 +23,7 @@ App.Contacts =
     @$$$.removeTagBtn = $('.remove-tag')
     @$$$.addPhoneBtn = $('a#add-phone-button')
     @$$$.formInputs = $('form input, form select')
-    @$$$.formSubmitBtn =$('form input[type=submit]')
+    @$$$.formSubmitBtn =$('form#new_contact input[type=submit], form#edit_contact input[type=submit]')
     @$$$.form =$('form#new_contact, form#edit_contact')
     
   
