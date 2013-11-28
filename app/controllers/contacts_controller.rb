@@ -7,9 +7,9 @@ class ContactsController < ApplicationController
   
   def index
     @contacts = if current_user.all_countries?
-       Contact.page(params[:page] || 1)
+       Contact.page(params[:page])
     else
-      Contact.where(country_code: current_user.country_code).page(params[:page] || 1)
+      Contact.where(country_code: current_user.country_code).page(params[:page])
     end
     params[:filters] = {}
     params[:cols] = ['first_name', 'last_name', 'emails', 'telephones']
