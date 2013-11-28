@@ -31,7 +31,6 @@ gem 'global_phone'
 gem 'htmltoword'
 gem 'phone'
 gem 'handlebars_assets'
-gem 'will_paginate'
 
 group :development do
   gem 'capistrano'

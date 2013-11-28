@@ -8,8 +8,6 @@
 
 = render partial: 'contacts/filters'
 
-= will_paginate @contacts
-
 %table.table.table-hover.table-bordered
   %thead
     %tr
@@ -18,7 +16,5 @@
       %th Actions
   %tbody
     = render @contacts
-
-= will_paginate @contacts
 
 = render partial: 'contacts/import_xls_modal'
