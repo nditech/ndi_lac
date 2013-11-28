@@ -1,19 +1,5 @@
 source 'https://rubygems.org'
 
-group :development do
-  gem 'capistrano'
-  gem 'capistrano-unicorn', :require => false
-  gem 'debugger'
-end
-
-group :production do
-  gem 'puma'
-end
-
-group :doc do
-  gem 'sdoc', require: false
-end
-
 gem 'rails', '4.0.0'
 gem 'pg'
 gem 'sass-rails', '~> 4.0.0'
@@ -22,6 +8,11 @@ gem 'coffee-rails', '~> 4.0.0'
 gem 'jquery-rails'
 gem 'turbolinks'
 gem 'jbuilder', '~> 1.2'
+
+group :doc do
+  gem 'sdoc', require: false
+end
+
 gem 'carmen-rails', :git => 'https://github.com/freerunningtechnologies/carmen-rails', :branch => 'rails4'
 gem 'phone'
 gem 'bootstrap-sass', git: 'git@github.com:thomas-mcdonald/bootstrap-sass.git'
@@ -41,3 +32,13 @@ gem 'htmltoword'
 gem 'phone'
 gem 'handlebars_assets'
 gem 'kaminari'
+
+group :development do
+  gem 'capistrano'
+  gem 'capistrano-unicorn', :require => false
+  gem 'debugger'
+end
+
+group :production do
+  gem 'puma'
+end
