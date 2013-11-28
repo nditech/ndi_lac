@@ -1,5 +1,19 @@
 source 'https://rubygems.org'
 
+group :development do
+  gem 'capistrano'
+  gem 'capistrano-unicorn', :require => false
+  gem 'debugger'
+end
+
+group :production do
+  gem 'puma'
+end
+
+group :doc do
+  gem 'sdoc', require: false
+end
+
 gem 'rails', '4.0.0'
 gem 'pg'
 gem 'sass-rails', '~> 4.0.0'
@@ -27,17 +41,3 @@ gem 'htmltoword'
 gem 'phone'
 gem 'handlebars_assets'
 gem 'kaminari'
-
-group :development do
-  gem 'capistrano'
-  gem 'capistrano-unicorn', :require => false
-  gem 'debugger'
-end
-
-group :production do
-  gem 'puma'
-end
-
-group :doc do
-  gem 'sdoc', require: false
-end
