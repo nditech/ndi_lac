@@ -8,11 +8,6 @@ gem 'coffee-rails', '~> 4.0.0'
 gem 'jquery-rails'
 gem 'turbolinks'
 gem 'jbuilder', '~> 1.2'
-
-group :doc do
-  gem 'sdoc', require: false
-end
-
 gem 'carmen-rails', :git => 'https://github.com/freerunningtechnologies/carmen-rails', :branch => 'rails4'
 gem 'phone'
 gem 'bootstrap-sass', git: 'git@github.com:thomas-mcdonald/bootstrap-sass.git'
@@ -41,4 +36,8 @@ end
 
 group :production do
   gem 'puma'
+end
+
+group :doc do
+  gem 'sdoc', require: false
 end
