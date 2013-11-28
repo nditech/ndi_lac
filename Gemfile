@@ -31,6 +31,7 @@ gem 'global_phone'
 gem 'htmltoword'
 gem 'phone'
 gem 'handlebars_assets'
+gem 'kaminari'
 
 group :development do
   gem 'capistrano'

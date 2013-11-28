@@ -6,10 +6,10 @@ module SolrSearch
         searchable do
           integer :id, stored: true
           string :first_name, stored: true do
-            first_name.downcase
+            first_name.to_s.downcase if first_name.present?
           end
           string :last_name, stored: true do
-            last_name.downcase
+            last_name.downcase if last_name.present?
           end
           string :emails, stored: true, multiple: true do
             emails.map &:email

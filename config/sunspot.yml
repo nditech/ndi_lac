@@ -10,7 +10,8 @@ production:
 development:
   solr:
     hostname: localhost
-    port: 8982
+    port: 8983
+    path: /solr/ndi-lac
     log_level: INFO
 
 test:

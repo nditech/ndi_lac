@@ -35,17 +35,28 @@ class Contact < ActiveRecord::Base
     "#{first_name} #{last_name}"
   end
   
-  def self.import(file)
-    spreadsheet = open_spreadsheet(file)
-    header = spreadsheet.row(1).map {|header_col| header_col.downcase.parameterize('_')}
-    (2..spreadsheet.last_row).each do |i|
-      row = Hash[[header, spreadsheet.row(i)].transpose]
-      contact = find_by_id(row["id"]) || new
-      debugger
-      contact.attributes = row.to_hash
-      contact.save!
-    end
-  end
+  def self.import(file) 
+    spreadsheet = open_spreadsheet(file) 
+    header = spreadsheet.row(1).map {|header_col| header_col.downcase.parameterize('_')} 
+    (2..spreadsheet.last_row).each do |i| 
+      row = Hash[[header, spreadsheet.row(i)].transpose] 
+      
+      if row["email"].present? 
+        row["emails_attributes"] = [{email: row["email"], kind: "personal"}]  
+      end 
+      row.delete("email")
+      
+      if row["country"].present? 
+        row["country_code"] = (row["country"].size > 2) ? Carmen::Country.named(row["country"].humanize).try(:code) : row["country"]  
+      end 
+      row.delete("country")
+      
+      contact = find_by_id(row["id"]) || new 
+      # debugger 
+      contact.attributes = row.to_hash 
+      contact.save! 
+    end 
+  end 
 
   def self.open_spreadsheet(file)
     case File.extname(file.original_filename)
