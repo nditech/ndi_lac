@@ -1,5 +1,6 @@
 require "bundler/capistrano"
 require 'puma/capistrano'
+require "sidekiq/capistrano"
 
 set :application, "ndi_lac"
 set :repository,  "git@github.com:parbros/ndi_lac.git"

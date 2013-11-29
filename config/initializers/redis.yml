@@ -1,0 +1,6 @@
+development:
+  host: localhost
+  port: 6379
+production:
+  host: 198.211.104.230
+  port: 6379
