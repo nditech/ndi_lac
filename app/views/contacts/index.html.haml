@@ -6,19 +6,20 @@
         %span.glyphicon.glyphicon-plus
         New Contact
 
-= render partial: 'contacts/filters'
+.row
+  .col-lg-3
+    = render partial: 'contacts/filters'
+  .col-lg-9
+    = paginate @contacts
+    %table.table.table-hover.table-bordered
+      %thead
+        %tr
+          - params[:cols].each do |column|
+            %th= column.humanize
+          %th Actions
+      %tbody
+        = render @contacts
 
-= paginate @contacts
-
-%table.table.table-hover.table-bordered
-  %thead
-    %tr
-      - params[:cols].each do |column|
-        %th= column.humanize
-      %th Actions
-  %tbody
-    = render @contacts
-
-= paginate @contacts
+    = paginate @contacts
 
 = render partial: 'contacts/import_xls_modal'

@@ -23,6 +23,9 @@ module SolrSearch
             telephones.map &:number
           end
           integer :organization_id, stored: true
+          integer :organization_kind, stored: true do
+            organization.try(:kind)
+          end
           string :position, stored: true
           integer :political_position, stored: true
           integer :level_trust, stored: true
@@ -45,6 +48,7 @@ module SolrSearch
               end
             end
             with(:organization_id).any_of(filters[:organizations]) if filters[:organizations].present?
+            with(:organization_kind).any_of(filters[:organization_kinds]) if filters[:organization_kinds].present?
             with(:political_position).any_of(filters[:political_positions]) if filters[:political_positions].present?
             with(:level_trust).any_of(filters[:level_of_trust]) if filters[:level_of_trust].present?
             with(:tags).any_of(filters[:tags]) if filters[:tags].present?

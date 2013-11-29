@@ -160,7 +160,7 @@ App.Contacts =
       App.Errors.show("Required Field Missing", "Please. fill the required fields to continue")
       
 
-$("#contacts-filters select#filters_countries_code, #contacts-filters #filters_organizations, #contacts-filters #filters_political_positions, #contacts-filters #filters_level_of_trust, #contacts-filters #filters_tags, #contacts-filters #cols").chosen()
+$("#contacts-filters select#filters_countries_code, #contacts-filters #filters_organizations,  #contacts-filters #filters_organization_kinds, #contacts-filters #filters_political_positions, #contacts-filters #filters_level_of_trust, #contacts-filters #filters_tags, #contacts-filters #cols").chosen()
 
 $('#export-to-excel-button').click (event) ->
   event.preventDefault()
