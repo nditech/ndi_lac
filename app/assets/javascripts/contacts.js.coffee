@@ -18,6 +18,7 @@ App.Contacts =
     @$$$.phonePrefix = $("#phone-prefix h4")
     @$$$.phoneSets = $("fieldset#phones-sets")
     @$$$.phoneInputs = $('.phone')
+    @$$$.emailInputs = $('.email')
     @$$$.tagsInput = $('#tags-input')
     @$$$.tagsList = $('#contact_tag_list')
     @$$$.removeTagBtn = $('.remove-tag')
@@ -33,6 +34,7 @@ App.Contacts =
     $(document).on 'click', ".remove-tag", @removeTag
     @$$$.addPhoneBtn.click @addPhoneField
     $(document).on "change", ".phone", @validatePhone
+    $(document).on "change", ".email", @validateEmail
     $(document).on "keypress", "input[id*=contact_telephones]", @canEditPhoneInput
     $('input#contact_first_name, input#contact_last_name').keypress @onlyLetters
     @$$$.formInputs.change @validateForm
@@ -113,6 +115,16 @@ App.Contacts =
         App.Errors.show("Telephone is not valid", "Please, check the phone you just entered")
       else
         that.removeClass "error"
+  
+  validateEmail: ->
+    email = $(this).val()
+    emailRegexp = /\S+@\S+\.\S+/
+    if emailRegexp.test(email)
+      $(this).removeClass "error"
+    else
+      $(this).addClass "error"
+      App.Errors.show("Email is not valid", "Please, check the email you just entered")
+      
   
   canEditPhoneInput: (event) ->
     keyCode = event.keyCode
