@@ -41,6 +41,7 @@ class OrganizationsController < ApplicationController
       :country_code,
       :state_code,
       :city,
+      :kind
     )
   end
 end

@@ -2,6 +2,7 @@
   %td= organization.id
   %td= organization.name
   %td= organization.country_code
+  %td= Organization::TYPES[organization.kind]
   %td
     =link_to edit_organization_path(organization), class: 'btn btn-primary'  do
       %span.glyphicon.glyphicon-edit
