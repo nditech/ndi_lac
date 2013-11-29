@@ -7,20 +7,20 @@ module PaginationHelper
     @next_page = @current_page + 1
     @last_page = @collection.total_pages
     
-    ul_pagination.html_safe
+    ul_pagination
   end
   
   def ul_pagination
     content_tag(:ul, class: :pagination) do
-      go_first_page.to_s +
-      go_prev_page.to_s +
-      go_two_prev_current.to_s +
-      go_one_prev_current.to_s +
-      current_page.to_s +
-      go_one_next.to_s +
-      go_two_next.to_s +
-      go_next_page.to_s +
-      go_last_page.to_s
+      concat go_first_page.to_s
+      concat go_prev_page.to_s
+      concat go_two_prev_current.to_s
+      concat go_one_prev_current.to_s
+      concat current_page.to_s
+      concat go_one_next.to_s
+      concat go_two_next.to_s
+      concat go_next_page.to_s
+      concat go_last_page.to_s
     end
   end
   
