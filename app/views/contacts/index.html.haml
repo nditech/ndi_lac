@@ -8,35 +8,6 @@
 
 = render partial: 'contacts/filters'
 
-/ %ul.pagination
-/   - current_page = @contacts.current_page
-/   - prev_page = current_page + 1
-/   - next_page = current_page + 1
-/   - last_page = @contacts.total_pages
-/ 
-/   - unless @contacts.first_page?
-/     - prev_page = current_page - 1
-/     %li= link_to "<<", url_for(params.merge({page: 1}))
-/     %li= link_to "<", url_for(params.merge({page: prev_page}))
-/     
-/   - if current_page > 2
-/     %li= link_to (current_page-2), url_for(params.merge({page: (current_page-2)}))
-/ 
-/   - if current_page > 1
-/     %li= link_to (current_page-1), url_for(params.merge({page: (current_page-1)}))
-/ 
-/   %li.disabled= link_to current_page, url_for(params.merge({page: current_page}))
-/   
-/   - unless (current_page+1) > last_page
-/     %li= link_to (current_page+1), url_for(params.merge({page: (current_page+1)}))
-/   
-/   - unless (current_page+2) > last_page
-/     %li= link_to (current_page+2), url_for(params.merge({page: (current_page+2)}))
-/   
-/   - unless @contacts.last_page?
-/     %li= link_to ">", url_for(params.merge({page: next_page}))
-/     %li= link_to ">>", url_for(params.merge({page: last_page}))
-
 = paginate @contacts
 
 %table.table.table-hover.table-bordered
