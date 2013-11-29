@@ -7,7 +7,8 @@ class User < ActiveRecord::Base
   devise :database_authenticatable,
          :recoverable, :rememberable, :trackable
   
-  has_many :reports       
+  has_many :reports
+  has_many :imports
   before_create :set_default_role
 
   def country_name

@@ -35,7 +35,8 @@ class Contact < ActiveRecord::Base
     "#{first_name} #{last_name}"
   end
   
-  def self.import(file) 
+  def self.import(file)
+    debugger
     spreadsheet = open_spreadsheet(file) 
     header = spreadsheet.row(1).map {|header_col| header_col.downcase.parameterize('_')} 
     (2..spreadsheet.last_row).each do |i| 
@@ -59,11 +60,11 @@ class Contact < ActiveRecord::Base
   end 
 
   def self.open_spreadsheet(file)
-    case File.extname(file.original_filename)
+    case File.extname(file.path)
     when ".csv" then Roo::Csv.new(file.path, nil, :ignore)
     when ".xls" then Roo::Excel.new(file.path, nil, :ignore)
     when ".xlsx" then Roo::Excelx.new(file.path, nil, :ignore)
-    else raise "Unknown file type: #{file.original_filename}"
+    else raise "Unknown file type: #{file.path}"
     end
   end
 end

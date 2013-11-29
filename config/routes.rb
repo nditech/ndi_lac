@@ -1,3 +1,5 @@
+require 'sidekiq/web'
+
 NdiDatabase::Application.routes.draw do
   devise_for :users
   root 'contacts#index'
@@ -19,4 +21,6 @@ NdiDatabase::Application.routes.draw do
     resource :export_excel, only: [:create], controller: 'export_excel'
     resource :export_docx, only: [:create], controller: 'export_docx'
   end
+  
+  mount Sidekiq::Web, at: '/sidekiq'
 end

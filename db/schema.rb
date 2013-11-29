@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131023070229) do
+ActiveRecord::Schema.define(version: 20131129134435) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -73,6 +73,17 @@ ActiveRecord::Schema.define(version: 20131023070229) do
     t.string   "email"
     t.string   "kind"
     t.integer  "contact_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "imports", force: true do |t|
+    t.string   "path_file"
+    t.integer  "user_id"
+    t.string   "status"
+    t.integer  "total_rows"
+    t.integer  "imported_rows"
+    t.datetime "ended_at"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

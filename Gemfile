@@ -31,6 +31,10 @@ gem 'global_phone'
 gem 'htmltoword'
 gem 'phone'
 gem 'handlebars_assets'
+gem 'sidekiq'
+gem 'sinatra', :require => false
+gem 'slim'
+gem 'state_machine'
 
 group :development do
   gem 'capistrano'

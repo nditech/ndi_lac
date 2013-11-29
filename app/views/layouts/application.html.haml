@@ -29,6 +29,18 @@
     #errors-container
       
     .container
+      - unless current_user.imports.started.empty?
+        - current_user.imports.started.each do |import|
+          .alert.alert-info
+            %button.close{"aria-hidden" => "true", "data-dismiss" => "alert", type: "button"} ×
+            %strong You have a file that is being processed
+
+      - unless current_user.imports.new_imports.empty?
+        - current_user.imports.new_imports.each do |import|
+          .alert.alert-info
+            %button.close{"aria-hidden" => "true", "data-dismiss" => "alert", type: "button"} ×
+            %strong You have a file that is waiting to be processed
+      
       = yield
 
 = javascript_include_tag "application", "data-turbolinks-track" => true
