@@ -35,7 +35,7 @@ gem 'sidekiq'
 gem 'sinatra', :require => false
 gem 'slim'
 gem 'state_machine'
-gem 'kaminari'
+gem 'kaminari', require: true
 
 group :development do
   gem 'capistrano'
