@@ -11,7 +11,7 @@
     = render partial: 'contacts/filters'
   .col-lg-9
     = paginate @contacts
-    %table.table.table-hover.table-bordered
+    %table.table.table-hover.table-bordered#contacts-table
       %thead
         %tr
           - params[:cols].each do |column|
