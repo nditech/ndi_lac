@@ -11,7 +11,7 @@
     %header.navbar.navbar-default.navbar-static-top
       .container
         = link_to 'NDI Database', root_path, class: 'navbar-brand'
-        -if current_user
+        - if current_user
           %ul.nav.navbar-nav
             %li= link_to 'Reports', reports_path
             %li= link_to 'Contacts', contacts_path
@@ -29,17 +29,18 @@
     #errors-container
       
     .container
-      - unless current_user.imports.started.empty?
-        - current_user.imports.started.each do |import|
-          .alert.alert-info
-            %button.close{"aria-hidden" => "true", "data-dismiss" => "alert", type: "button"} ×
-            %strong You have a file that is being processed
+      - if current_user
+        - unless current_user.imports.started.empty?
+          - current_user.imports.started.each do |import|
+            .alert.alert-info
+              %button.close{"aria-hidden" => "true", "data-dismiss" => "alert", type: "button"} ×
+              %strong You have a file that is being processed
 
-      - unless current_user.imports.new_imports.empty?
-        - current_user.imports.new_imports.each do |import|
-          .alert.alert-info
-            %button.close{"aria-hidden" => "true", "data-dismiss" => "alert", type: "button"} ×
-            %strong You have a file that is waiting to be processed
+        - unless current_user.imports.new_imports.empty?
+          - current_user.imports.new_imports.each do |import|
+            .alert.alert-info
+              %button.close{"aria-hidden" => "true", "data-dismiss" => "alert", type: "button"} ×
+              %strong You have a file that is waiting to be processed
       
       = yield
 
