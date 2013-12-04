@@ -26,6 +26,8 @@ App.Contacts =
     @$$$.formInputs = $('form input, form select')
     @$$$.formSubmitBtn =$('form#new_contact input[type=submit], form#edit_contact input[type=submit]')
     @$$$.form =$('form#new_contact, form#edit_contact')
+    @$$$.selectOrganization = $('select#contact_organization_id')
+    @$$$.newOrganizationForm = $('fieldset#new-organization')
     
   
   bindingElements: ->
@@ -39,6 +41,7 @@ App.Contacts =
     $('input#contact_first_name, input#contact_last_name').keypress @onlyLetters
     @$$$.formInputs.change @validateForm
     @$$$.form.submit @validateFormSubmit
+    @$$$.selectOrganization.change @showNewOrganizationForm
   
   
   getCountryCode: ->
@@ -159,7 +162,13 @@ App.Contacts =
       event.preventDefault()
       App.Errors.show("Required Field Missing", "Please. fill the required fields to continue")
       
-
+  showNewOrganizationForm: ->
+    if $(@).val() == 'crear_nuevo'
+      App.Contacts.$$$.newOrganizationForm.show()
+    else
+      App.Contacts.$$$.newOrganizationForm.hide()
+      
+  
 $("#contacts-filters select#filters_countries_code, #contacts-filters #filters_organizations,  #contacts-filters #filters_organization_kinds, #contacts-filters #filters_political_positions, #contacts-filters #filters_level_of_trust, #contacts-filters #filters_tags, #contacts-filters #cols").chosen()
 
 $('#export-to-excel-button').click (event) ->

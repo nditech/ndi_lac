@@ -1,21 +1,21 @@
 = form_for @contact, html: {class: 'form-horizontal cmxform'} do |form|
 
   %fieldset
-    %legend Personal Information
+    %legend Informaci&oacute;n Personal
     .form-group
-      %label.col-lg-2.control-label First Name:
+      %label.col-lg-2.control-label Nombre:
       .col-lg-10
         = form.text_field :first_name, class: 'form-control'
     
     .form-group
-      %label.col-lg-2.control-label Last Name:
+      %label.col-lg-2.control-label Apellido:
       .col-lg-10
         = form.text_field :last_name, class: 'form-control'
 
     .form-group
-      %label.col-lg-2.control-label Genre:
+      %label.col-lg-2.control-label Genero:
       .col-lg-10
-        = form.select :genre, Contact::GENRE.map {|genre| [genre.humanize, genre]}, {prompt: 'Please select one'}, {class: 'form-control'}
+        = form.select :genre, Contact::GENRE.map {|genre| [genre.humanize, genre]}, {prompt: 'Selecciona uno'}, {class: 'form-control'}
 
     .form-group
       %label.col-lg-2.control-label Twitter:
@@ -29,10 +29,10 @@
 
 
   %fieldset
-    %legend Address
+    %legend Direcci&ocute;n
 
     .form-group
-      %label.col-lg-2.control-label Address:
+      %label.col-lg-2.control-label Direcci&oacute;n:
       .col-lg-10
         = form.text_field :address, class: 'form-control'
 
@@ -41,40 +41,40 @@
         = form.text_field :address_2, class: 'form-control'
 
     .form-group
-      %label.col-lg-2.control-label Country:
+      %label.col-lg-2.control-label Pa&iacute;s:
       .col-lg-10
-        = form.country_select :country_code, {prompt: 'Please select one'}, class: 'form-control'
+        = form.country_select :country_code, {prompt: 'Selecciona uno'}, class: 'form-control'
         
     .form-group
-      %label.col-lg-2.control-label Region:
+      %label.col-lg-2.control-label Regi&oacute;n:
       #region-container.col-lg-10
         - if @contact.country_code.present?
-          = form.select :state_code, Carmen::Country.coded(@contact.country_code).subregions.map {|region| [region.name, region.code]}, {prompt: 'Please select one'}, {class: 'form-control'}
+          = form.select :state_code, Carmen::Country.coded(@contact.country_code).subregions.map {|region| [region.name, region.code]}, {prompt: 'Seleccions uno'}, {class: 'form-control'}
           
 
     .form-group
-      %label.col-lg-2.control-label City:
+      %label.col-lg-2.control-label Ciudad:
       .col-lg-10
         = form.text_field :city, class: 'form-control'
 
   %fieldset#phones-sets
-    %legend Telephones
+    %legend Tel&eacute;fono:
     #phone-prefix
       %h4
     .col-lg-12
       = link_to '#', class: 'btn btn-primary', id: 'add-phone-button' do
         %span.glyphicon.glyphicon-plus
-        Add Telephone
+        Tel&eacute;fonos
     = form.fields_for :telephones do |telephone_form|
       .form-group
-        %label.col-lg-2.control-label Phone type:
+        %label.col-lg-2.control-label Tipo de Tel&eacute;fono:
         .col-lg-3
-          = telephone_form.select :kind, Telephone::TYPES.map {|phone_type| [phone_type.humanize, phone_type]}, {prompt: 'Please select one'}, {class: 'form-control'}
+          = telephone_form.select :kind, Telephone::TYPES.map {|phone_type| [phone_type.humanize, phone_type]}, {prompt: 'Selecciona uno'}, {class: 'form-control'}
         %label.col-lg-2.control-label Phone number:
         .col-lg-3
           = telephone_form.telephone_field :number, {class: 'form-control phone valid'}
         .col-lg-2
-          = telephone_form.label '_destroy', 'Remove Phone', class: 'control-label'
+          = telephone_form.label '_destroy', 'Remover Telefono', class: 'control-label'
           = telephone_form.check_box '_destroy', {}, true          
 
   %fieldset#emails-sets
@@ -82,23 +82,23 @@
     .col-lg-12
       = link_to '#', class: 'btn btn-primary', id: 'add-email-button' do
         %span.glyphicon.glyphicon-plus
-        Add Email
+        Email
     = form.fields_for :emails do |email_form|
       .form-group
-        %label.col-lg-2.control-label Email type:
+        %label.col-lg-2.control-label Tipo de email:
         .col-lg-3
-          = email_form.select :kind, Email::TYPES.map {|email_type| [email_type.humanize, email_type]}, {prompt: 'Please select one'}, {class: 'form-control'}
+          = email_form.select :kind, Email::TYPES.map {|email_type| [email_type.humanize, email_type]}, {prompt: 'Selecciona uno'}, {class: 'form-control'}
         %label.col-lg-2.control-label Email:
         .col-lg-3
           = email_form.email_field :email, {class: 'form-control email'}
         .col-lg-2
-          = email_form.label '_destroy', 'Remove Email', class: 'control-label'
+          = email_form.label '_destroy', 'Remover Email', class: 'control-label'
           = email_form.check_box '_destroy', {}, true          
 
   %fieldset
-    %legend NDI Relationship
+    %legend Relaci&oacute;n con NDI
     .form-group
-      = form.label :ndi_consultant, 'Consultant', class: 'control-label col-lg-2'
+      = form.label :ndi_consultant, 'Consultor', class: 'control-label col-lg-2'
       .col-lg-10
         = form.check_box :ndi_consultant
 
@@ -108,33 +108,46 @@
         = form.check_box :probono
 
     .form-group
-      %label.col-lg-2.control-label Level of trust:
+      %label.col-lg-2.control-label Nivel de confianza:
       .col-lg-10
-        = form.select :level_trust, [1,2,3,4,5], {prompt: 'Please select one'}, {class: 'form-control'}
+        = form.select :level_trust, [1,2,3,4,5], {prompt: 'Selecciona uno'}, {class: 'form-control'}
 
     .form-group
-      %label.col-lg-2.control-label Contacted by:
+      %label.col-lg-2.control-label Contactado por:
       .col-lg-10
         = form.text_field :contacted_by, class: 'form-control'
 
   %fieldset
-    %legend Political Information
+    %legend Informaci&oacute;n pol&iacute;tica
 
     .form-group
-      %label.col-lg-2.control-label Organization:
+      %label.col-lg-2.control-label Organizaci&oacute;n:
       .col-lg-10
-        = form.select :organization_id, Organization.all.map {|organization| [organization.name.humanize, organization.id]}, {prompt: 'Please select one'}, {class: 'form-control'}
+        = form.select :organization_id, Organization.to_select, {prompt: 'Selecciona uno'}, {class: 'form-control'}
 
 
     .form-group
-      %label.col-lg-2.control-label Position within organization:
+      %label.col-lg-2.control-label Posici&oacute;n de la organizaci&oacute;n:
       .col-lg-10
         = form.text_field :position, class: 'form-control'
 
     .form-group
-      %label.col-lg-2.control-label Political Position:
+      %label.col-lg-2.control-label Posici&oacute;n pol&iacute;tica:
       .col-lg-10
-        = form.select :political_position, Contact::POLITICAL_POSITIONS.map {|position| [position.last.humanize, position.first]}, {prompt: 'Please select one'}, {class: 'form-control'}
+        = form.select :political_position, Contact::POLITICAL_POSITIONS.map {|position| [position.last.humanize, position.first]}, {prompt: 'Selecciona uno'}, {class: 'form-control'}
+
+  %fieldset#new-organization
+    %legend Nueva Organizaci&oacute;n
+    .form-group
+      %label.col-lg-2.control-label Nombre:
+      .col-lg-10
+        = text_field_tag "organization[name]", "", class: 'form-control'
+
+    .form-group
+      %label.col-lg-2.control-label Tipo:
+      .col-lg-10
+        = select_tag 'organization[kind]', options_for_select(Organization::TYPES.map {|type| [type.last, type.first]}), prompt: 'Selecciona uno', class: 'form-control'
+
 
   %fieldset
     %legend Tags

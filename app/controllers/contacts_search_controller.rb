@@ -7,7 +7,8 @@ class ContactsSearchController < ApplicationController
     
     respond_with do |format|
       format.html { render 'contacts/index' }
-      format.js { render json: @contacts}
+      format.js { render json: [{pages: @contacts.total_pages, current_page: @contacts.current_page, collection: @contacts}]}
+      # format.js { render json: @contacts}
     end
   end
 
@@ -17,7 +18,8 @@ class ContactsSearchController < ApplicationController
     
     respond_with do |format|
       format.html { render 'contacts/index' }
-      format.js { render json: @contacts}
+      format.js { render json: [{pages: @contacts.total_pages, current_page: @contacts.current_page, collection: @contacts}]}
+      # format.js { render json: @contacts}
     end
   end
 end

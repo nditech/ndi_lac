@@ -37,7 +37,7 @@
     .form-group
       %label.col-lg-2.control-label Type:
       #region-container.col-lg-10
-        = form.select :kind, Organization::TYPES.map {|type| [type.last, type.first]}, {prompt: 'Please select one'}, {class: 'form-control', required: true}
+        = form.select :kind, Organization::TYPES.map {|type| [type.last, type.first]}, {prompt: 'Selecciona uno'}, {class: 'form-control', required: true}
 
 
   = form.submit class: 'btn btn-primary'

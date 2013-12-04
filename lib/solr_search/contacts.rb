@@ -5,10 +5,10 @@ module SolrSearch
       base.class_eval do
         searchable do
           integer :id, stored: true
-          string :first_name, stored: true do
+          text :first_name, stored: true do
             first_name.to_s.downcase if first_name.present?
           end
-          string :last_name, stored: true do
+          text :last_name, stored: true do
             last_name.downcase if last_name.present?
           end
           string :emails, stored: true, multiple: true do
@@ -37,7 +37,8 @@ module SolrSearch
         def self.filters(filters)
           (search do
             with(:id).any_of(filters[:ids].split(',')) if filters[:ids].present?
-            with(:first_name, filters[:first_name].downcase) if filters[:first_name].present?
+            keywords filters[:first_name].downcase, fields: :first_name if filters[:first_name].present?
+            keywords filters[:last_name].downcase, fields: :last_name if filters[:last_name].present?
             with(:last_name, filters[:last_name].downcase) if filters[:last_name].present?
             with(:email, filters[:email].downcase) if filters[:email].present?
             if filters[:countries_code].present?
@@ -53,7 +54,7 @@ module SolrSearch
             with(:level_trust).any_of(filters[:level_of_trust]) if filters[:level_of_trust].present?
             with(:tags).any_of(filters[:tags]) if filters[:tags].present?
             
-            paginate :page => filters[:page], :per_page => 50
+            paginate(:page => filters[:page], :per_page => 50) if filters[:page]
           end).results
         end
       end

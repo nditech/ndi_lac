@@ -22,8 +22,9 @@ class ContactsController < ApplicationController
   end
   
   def create
-    @contact = Contact.new contact_params
+    @contact = Contact.new cleaned_params
     if @contact.save
+      create_organization
       redirect_to contacts_url, notice: 'Contact create successfully.'
     else
       render :new, error: 'There is some errors in your contact.'
@@ -38,7 +39,8 @@ class ContactsController < ApplicationController
   
   def update
     @contact = Contact.find params[:id]
-    if @contact.update_attributes contact_params
+    if @contact.update_attributes cleaned_params
+      create_organization
       redirect_to contacts_url, notice: 'Contact create successfully.'
     else
       render :new, error: 'There is some errors in your contact.'
@@ -88,5 +90,28 @@ class ContactsController < ApplicationController
         :_destroy
       ]
     )
+  end
+  
+  def organization_params
+    params.require(:organization).permit(
+    :name,
+    :kind
+    )
+  end
+  
+  def cleaned_params    
+    if contact_params[:organization_id] == 'crear_nuevo'
+      contact_params.except(:organization_id)
+    else
+      contact_params
+    end
+  end
+  
+  def create_organization
+    if contact_params[:organization_id] == 'crear_nuevo'
+      organization = Organization.find_or_create_by_name organization_params
+      @contact.organization = organization
+      @contact.save
+    end
   end
 end

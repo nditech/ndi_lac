@@ -16,4 +16,8 @@ class Organization < ActiveRecord::Base
     "10" => "Media",
     "11" => "Other"
   }
+  
+  def self.to_select
+    all.map {|organization| [organization.name.humanize, organization.id]}.push(['Crear nueva organizacion', 'crear_nuevo'])
+  end
 end

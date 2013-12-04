@@ -18,17 +18,17 @@ class Contact < ActiveRecord::Base
   acts_as_taggable
   
   POLITICAL_POSITIONS = {
-    '1' => 'left',
-    '2' => 'center-left',
-    '3' => 'center',
-    '4' => 'center-right',
-    '5' => 'right'
+    '1' => 'izquierda',
+    '2' => 'centro-izquierda',
+    '3' => 'centro',
+    '4' => 'centro-derecha',
+    '5' => 'derecha'
   }
   
   GENRE = [
-    'female',
-    'male',
-    'other'
+    'femenino',
+    'masculino',
+    'otro'
   ]
   
   def name
