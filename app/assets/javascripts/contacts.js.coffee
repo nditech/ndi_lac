@@ -26,7 +26,7 @@ App.Contacts =
     @$$$.removeTagBtn = $('.remove-tag')
     @$$$.addPhoneBtn = $('a#add-phone-button')
     @$$$.formInputs = $('form input, form select')
-    @$$$.formSubmitBtn =$('form#new_contact input[type=submit], form#edit_contact input[type=submit]')
+    @$$$.formSubmitBtn =$('form#new_contact input[type=submit], form[id*=edit_contact] input[type=submit]')
     @$$$.form =$('form#new_contact, form#edit_contact')
     @$$$.selectOrganization = $('select#contact_organization_id')
     @$$$.newOrganizationForm = $('fieldset#new-organization')
@@ -46,8 +46,10 @@ App.Contacts =
     @$$$.selectOrganization.change @showNewOrganizationForm
   
   initializePlugins: ->
+    @validateForm()
     $("label.control-label.required").tooltip
       title: "Campo requerido"
+    
   
   getCountryCode: ->
     countryCode = $(this).val();
@@ -160,8 +162,10 @@ App.Contacts =
   validateForm: ->
     if App.Contacts.countryPresent() && App.Contacts.firstNamePresent() && App.Contacts.LastNamePresent() && App.Contacts.regionPresent()
       App.Contacts.$$$.formSubmitBtn.removeClass("disabled")
+      console.log "VALIDO"
       App.Contacts.$$$.formSubmitBtn.popover 'destroy'
     else
+      console.log "NO VALIDO"
       missingFields = App.Contacts.missingRequiredFields().join(", ")
       App.Contacts.$$$.formSubmitBtn.attr('data-content', missingFields)
       App.Contacts.$$$.formSubmitBtn.popover 'show'
