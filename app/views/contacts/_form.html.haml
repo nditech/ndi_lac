@@ -3,12 +3,12 @@
   %fieldset
     %legend Informaci&oacute;n Personal
     .form-group
-      %label.col-lg-2.control-label Nombre:
+      %label.col-lg-2.control-label.required Nombre:
       .col-lg-10
         = form.text_field :first_name, class: 'form-control'
     
     .form-group
-      %label.col-lg-2.control-label Apellido:
+      %label.col-lg-2.control-label.required Apellido:
       .col-lg-10
         = form.text_field :last_name, class: 'form-control'
 
@@ -29,7 +29,7 @@
 
 
   %fieldset
-    %legend Direcci&ocute;n
+    %legend Direcci&oacute;n
 
     .form-group
       %label.col-lg-2.control-label Direcci&oacute;n:
@@ -41,12 +41,12 @@
         = form.text_field :address_2, class: 'form-control'
 
     .form-group
-      %label.col-lg-2.control-label Pa&iacute;s:
+      %label.col-lg-2.control-label.required Pa&iacute;s:
       .col-lg-10
         = form.country_select :country_code, {prompt: 'Selecciona uno'}, class: 'form-control'
         
     .form-group
-      %label.col-lg-2.control-label Regi&oacute;n:
+      %label.col-lg-2.control-label.required Regi&oacute;n:
       #region-container.col-lg-10
         - if @contact.country_code.present?
           = form.select :state_code, Carmen::Country.coded(@contact.country_code).subregions.map {|region| [region.name, region.code]}, {prompt: 'Seleccions uno'}, {class: 'form-control'}
@@ -70,7 +70,7 @@
         %label.col-lg-2.control-label Tipo de Tel&eacute;fono:
         .col-lg-3
           = telephone_form.select :kind, Telephone::TYPES.map {|phone_type| [phone_type.humanize, phone_type]}, {prompt: 'Selecciona uno'}, {class: 'form-control'}
-        %label.col-lg-2.control-label Phone number:
+        %label.col-lg-2.control-label Numero tel&eacute;fonico:
         .col-lg-3
           = telephone_form.telephone_field :number, {class: 'form-control phone valid'}
         .col-lg-2
@@ -116,6 +116,25 @@
       %label.col-lg-2.control-label Contactado por:
       .col-lg-10
         = form.text_field :contacted_by, class: 'form-control'
+
+    .form-group
+      %label.col-lg-2.control-label Participante en actividad del NDI
+      .col-lg-10
+        .checkbox
+          %label
+            = form.check_box :national_leadership_program
+            Programa de Liderazgo Nacional
+        .checkbox
+          %label
+            = form.check_box :regional_leadership_program, {}, 'Programa de Liderazgo Regional'
+            Programa de Liderazgo Regional
+        .checkbox
+          %label
+            = form.check_box :results_democracy, {}, 'Democracia con Resultados'
+            Democracia con Resultados
+        
+        = form.text_field :ndi_activity, class: 'form-control', placeholder: "Otra actividad"
+
 
   %fieldset
     %legend Informaci&oacute;n pol&iacute;tica
@@ -164,4 +183,4 @@
         
         = form.hidden_field :tag_list
 
-  = form.submit class: 'btn btn-primary disabled'
+  = form.submit class: 'btn btn-primary disabled', 'data-title' => "Faltan campos requeridos", "data-toggle" => 'popover', 'data-trigger' => 'hover', 'data-placement' => 'right'

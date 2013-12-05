@@ -27,12 +27,12 @@
   %td
     =link_to contact_path(contact), class: 'btn btn-success col-lg-12'  do
       %span.glyphicon.glyphicon-eye-open
-      View
+      Ver
     - if current_user.is_admin?
       =link_to edit_contact_path(contact), class: 'btn btn-primary col-lg-12'  do
         %span.glyphicon.glyphicon-edit
-        Edit
+        Editar
     - if current_user.is_admin?
-      = link_to contact_path(contact), method: 'delete', class: 'btn btn-danger col-lg-12', confirm: 'Are you sure you want to delete the contact?' do
-        Delete
+      = link_to contact_path(contact), method: 'delete', class: 'btn btn-danger col-lg-12', confirm: '¿Esta seguro que desea eliminar el contacto?' do
+        Borrar
         %span.glyphicon.glyphicon-remove

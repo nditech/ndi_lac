@@ -8,8 +8,10 @@ App.Contacts =
   init: ->
     @cacheElements()
     @bindingElements()
+    @initializePlugins()
 
   cacheElements: ->
+    @$$$.body = $("body")
     @$$$.countryField = $('#contact_country_code')
     @$$$.regionsContainer = $('#region-container')
     @$$$.contactFirstName = $('#contact_first_name')
@@ -39,17 +41,20 @@ App.Contacts =
     $(document).on "change", ".email", @validateEmail
     $(document).on "keypress", "input[id*=contact_telephones]", @canEditPhoneInput
     $('input#contact_first_name, input#contact_last_name').keypress @onlyLetters
-    @$$$.formInputs.change @validateForm
+    @$$$.body.on 'change', 'form input, form select', @validateForm
     @$$$.form.submit @validateFormSubmit
     @$$$.selectOrganization.change @showNewOrganizationForm
   
+  initializePlugins: ->
+    $("label.control-label.required").tooltip
+      title: "Campo requerido"
   
   getCountryCode: ->
     countryCode = $(this).val();
     $.get("/countries/#{countryCode}", (data) =>
       App.Contacts.$$$.phoneInputs.val("+#{data.country_code}")
       App.Contacts.$$$.regionsContainer.html(HandlebarsTemplates["contacts/regions"](data))
-      App.Contacts.$$$.phonePrefix.html("Country code for the country you selected: +" + data.country_code)
+      App.Contacts.$$$.phonePrefix.html("Codigo del pais que ha seleccionado: +" + data.country_code)
       App.Contacts.$$$.phoneSets.attr('data-country-code', data.country_code)
       App.Contacts.$$$.contactRegion = $('#contact_state_code')
     )
@@ -82,7 +87,7 @@ App.Contacts =
     tagElement.append(removeLink)
   
   countryRequiredError: ->
-    App.Errors.show("Country Field is required", "Please, select a country in the list to continue")
+    App.Errors.show("El campo pais es requerido", "Para continua, seleccione un pais de la lista")
   
   addPhoneField: (event) ->
     event.preventDefault();
@@ -115,9 +120,10 @@ App.Contacts =
     $.get "/contacts/validate_phone_number", {phone_number: phoneNumber}, (data) ->
       if data.valid == "false" || data.valid == false || data.valid == null
         that.addClass "error"
-        App.Errors.show("Telephone is not valid", "Please, check the phone you just entered")
+        App.Errors.show("Telefono no valido", "Revise el telefono que ingreso")
       else
         that.removeClass "error"
+    $('#example').tooltip(options)
   
   validateEmail: ->
     email = $(this).val()
@@ -126,7 +132,7 @@ App.Contacts =
       $(this).removeClass "error"
     else
       $(this).addClass "error"
-      App.Errors.show("Email is not valid", "Please, check the email you just entered")
+      App.Errors.show("Email no valido", "Revise el email que ingreso")
       
   
   canEditPhoneInput: (event) ->
@@ -154,13 +160,30 @@ App.Contacts =
   validateForm: ->
     if App.Contacts.countryPresent() && App.Contacts.firstNamePresent() && App.Contacts.LastNamePresent() && App.Contacts.regionPresent()
       App.Contacts.$$$.formSubmitBtn.removeClass("disabled")
+      App.Contacts.$$$.formSubmitBtn.popover 'destroy'
     else
+      missingFields = App.Contacts.missingRequiredFields().join(", ")
+      App.Contacts.$$$.formSubmitBtn.attr('data-content', missingFields)
+      App.Contacts.$$$.formSubmitBtn.popover 'show'
       App.Contacts.$$$.formSubmitBtn.addClass("disabled")
+  
+  missingRequiredFields: ->
+    missingField = []
+    unless App.Contacts.countryPresent()
+      missingField.push "Pais"
+    unless App.Contacts.firstNamePresent()
+      missingField.push "Nombre"
+    unless App.Contacts.LastNamePresent()
+      missingField.push "Apellido"
+    unless App.Contacts.regionPresent()
+      missingField.push "Region"
+    missingField
+    
   
   validateFormSubmit: (event) ->    
     if !App.Contacts.countryPresent() && !App.Contacts.firstNamePresent() && !App.Contacts.LastNamePresent() && !App.Contacts.regionPresent()
       event.preventDefault()
-      App.Errors.show("Required Field Missing", "Please. fill the required fields to continue")
+      App.Errors.show("Faltan campos requeridos", "Ingrese todos los campos requeridos para continuar")
       
   showNewOrganizationForm: ->
     if $(@).val() == 'crear_nuevo'

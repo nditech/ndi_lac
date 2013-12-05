@@ -1,19 +1,19 @@
 <div class="form-group">
-  <label class="col-lg-2 control-label">Phone type:</label>
+  <label class="col-lg-2 control-label">Tipo de Tel&eacute;fono:</label>
   <div class="col-lg-3">
     <select class="form-control" id="contact_telephones_attributes_{{index}}_kind" name="contact[telephones_attributes][{{index}}][kind]"><option value="">Please select one</option>
-      <option value="cellphone">Cellphone</option>
-      <option value="home">Home</option>
+      <option value="cellphone">Celular/mobil</option>
+      <option value="home">Casa</option>
       <option value="personal">Personal</option>
-      <option value="work">Work</option>
-      <option value="other">Other</option></select>
+      <option value="work">Trabajo</option>
+      <option value="other">Otro</option></select>
     </div>
-    <label class="col-lg-2 control-label">Phone number:</label>
+    <label class="col-lg-2 control-label">Numero tel&eacute;fonico:</label>
     <div class="col-lg-3">
       <input class="form-control phone" id="contact_telephones_attributes_{{index}}_number" name="contact[telephones_attributes][{{index}}][number]" type="tel">
     </div>
     <div class="col-lg-2">
-      <label class="control-label" for="contact_telephones_attributes_{{index}}__destroy">Remove Phone</label>
+      <label class="control-label" for="contact_telephones_attributes_{{index}}__destroy">Remover Tele&eacute;fono</label>
       <input name="contact[telephones_attributes][{{index}}][_destroy]" type="hidden" value="0"><input id="contact_telephones_attributes_{{index}}__destroy" name="contact[telephones_attributes][{{index}}][_destroy]" type="checkbox" value="true">
     </div>
   </div>

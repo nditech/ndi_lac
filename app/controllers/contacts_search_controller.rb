@@ -2,6 +2,8 @@ class ContactsSearchController < ApplicationController
   respond_to :js, :html
   
   def index
+    params[:filters] = {} if params[:filters].blank?
+    params[:cols] = ["first_name", "last_name", "emails", "telephones"] if params[:cols].blank?
     params[:filters][:page] = params[:page]
     @contacts = Contact.filters(params[:filters])
     
@@ -13,6 +15,7 @@ class ContactsSearchController < ApplicationController
   end
 
   def create
+    params[:filters] = {} if params[:filters].blank?
     params[:filters][:page] = params[:page]
     @contacts = Contact.filters(params[:filters])
     

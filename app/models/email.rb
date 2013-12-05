@@ -3,7 +3,7 @@ class Email < ActiveRecord::Base
   
   TYPES = [
     'personal',
-    'work',
-    'other'
+    'trabajo',
+    'otro'
   ]
 end

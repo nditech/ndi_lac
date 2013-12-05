@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131129212848) do
+ActiveRecord::Schema.define(version: 20131205133704) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -57,6 +57,10 @@ ActiveRecord::Schema.define(version: 20131129212848) do
     t.string   "facebook"
     t.boolean  "ndi_consultant"
     t.boolean  "probono"
+    t.boolean  "national_leadership_program"
+    t.boolean  "regional_leadership_program"
+    t.boolean  "results_democracy"
+    t.string   "ndi_activity"
   end
 
   create_table "contacts_reports", force: true do |t|

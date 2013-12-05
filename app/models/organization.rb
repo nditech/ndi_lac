@@ -1,20 +1,22 @@
+# encoding: utf-8
+
 class Organization < ActiveRecord::Base
   audited
   
   has_many :contacts
   
   TYPES = {
-    "1" => "Non-Governmental Organization",
-    "2" => "Think Tank",
-    "3" => "Legislative",
-    "4" => "Judicial",
-    "5" => "Political Party",
-    "6" => "Political Movement",
-    "7" => "National Government",
-    "8" => "State  Government",
-    "9" => "Municipal  Government",
-    "10" => "Media",
-    "11" => "Other"
+    "1" => "Organización No Gubernamental",
+    "2" => "Centro de Pensamiento",
+    "3" => "Rama Legislativa",
+    "4" => "Rama Judicial",
+    "5" => "Partido Político",
+    "6" => "Movimiento Político",
+    "7" => "Gobierno Nacional",
+    "8" => "Gobierno Departamental",
+    "9" => "Gobierno Municipal",
+    "10" => "Medio de Comunicación",
+    "11" => "Otro"
   }
   
   def self.to_select
