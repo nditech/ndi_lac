@@ -77,6 +77,10 @@ class ContactsController < ApplicationController
       :ndi_consultant,
       :probono,
       :contacted_by,
+      :national_leadership_program,
+      :regional_leadership_program,
+      :results_democracy,
+      :ndi_activity,
       telephones_attributes: [
         :kind, 
         :number,
