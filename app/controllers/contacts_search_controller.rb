@@ -4,7 +4,7 @@ class ContactsSearchController < ApplicationController
   def index
     params[:filters] = {} if params[:filters].blank?
     params[:cols] = ["first_name", "last_name", "emails", "telephones"] if params[:cols].blank?
-    params[:filters][:page] = params[:page]
+    params[:filters][:page] = params[:page] if params[:filters][:page].blank? && params[:page].present?
     @contacts = Contact.filters(params[:filters])
     
     respond_with do |format|

@@ -1,0 +1,25 @@
+{{#compare currentPage 1 operator=">"}}
+  <li><a href="#" data-to-page='1'><<</a></li>
+  <li><a href="#" data-to-page='{{prev}}'><</a></li>
+  {{#compare currentPage 2 operator=">"}}
+    <li><a href="#" href="#" data-to-page='{{prev2}}'>{{prev2}}</a></li>
+  {{/compare}}
+  
+  <li><a href="#" data-to-page='{{prev}}'>{{prev}}</a></li>
+  
+{{/compare}}
+
+<li class="disabled"><a>{{currentPage}}</a></li>
+
+{{#compare next pages operator="<="}}
+  <li><a href="#" data-to-page='{{next}}'>{{next}}</a></li>
+{{/compare}}
+
+{{#compare next2 pages operator="<="}}
+  <li><a href="#" data-to-page='{{next2}}'>{{next2}}</a></li>
+{{/compare}}
+
+{{#compare currentPage pages operator="<"}}
+  <li><a href="#" data-to-page='{{next}}'>></a></li>
+  <li><a href="#" data-to-page='{{pages}}'>>></a></li>
+{{/compare}}
