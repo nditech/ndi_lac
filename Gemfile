@@ -35,6 +35,7 @@ gem 'sidekiq'
 gem 'sinatra', :require => false
 gem 'slim'
 gem 'state_machine'
+gem 'faker'
 
 group :development do
   gem 'capistrano'
