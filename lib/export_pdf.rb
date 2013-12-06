@@ -27,12 +27,7 @@ class ExportPdf < Prawn::Document
           elsif col == 'organization'
             text "#{col.humanize}: #{contact.organization.name if contact.organization.present?}"
           elsif col == 'emails'
-            text "#{col.humanize}:"
-            contact.emails.each do |email|
-              y_position = cursor - 10
-              draw_text "#{email.kind.humanize}: #{email.email}", at: [20, y_position]
-              move_down 15
-            end
+            text "#{col.humanize}: #{contact.emails.map(&:email).join(',')}"
           elsif col == 'telephones'
             text "#{col.humanize}:"
             contact.telephones.each do |telephone| 

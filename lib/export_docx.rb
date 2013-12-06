@@ -25,10 +25,7 @@ class ExportDocx
         elsif col == 'organization'
           text "#{col.humanize}: #{contact.organization.name if contact.organization.present?}"
         elsif col == 'emails'
-          text "#{col.humanize}:"
-          contact.emails.each do |email|
-            text "#{email.kind.humanize}: #{email.email}"
-          end
+          text "#{col.humanize}: #{contact.emails.map(&:email).join(',')}"
         elsif col == 'telephones'
           text "#{col.humanize}:"
           contact.telephones.each do |telephone| 
