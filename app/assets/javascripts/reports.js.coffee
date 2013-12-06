@@ -77,15 +77,16 @@ extractContact = (element) ->
 
 loadContacts = ->
   contactIds = $('textarea#report_contact_ids').val()
-  $.ajax '/contacts_search',
-    data:
-      filters:
-        ids: contactIds
-        page: 'all'
-    success: (data, status, xhr) ->
-      results = jQuery.parseJSON(data)[0]
-      $.each results.collection, (index, contact) ->
-        addContactToReport(contact)
+  if contactIds != ''
+    $.ajax '/contacts_search',
+      data:
+        filters:
+          ids: contactIds
+          page: 'all'
+      success: (data, status, xhr) ->
+        results = jQuery.parseJSON(data)[0]
+        $.each results.collection, (index, contact) ->
+          addContactToReport(contact)
 
 $(document).on "click", "a.remove-to-report", (event) ->
   event.preventDefault
