@@ -19,4 +19,22 @@ module ContactsHelper
     selected)
     
   end
+  
+  def columns_array
+    [['Nombre', 'first_name'], 
+     ['Apellido', 'last_name'],
+     ['Emails', 'emails'],
+     ['Direccion', 'address'],
+     ['Direccion 2', 'address_2'],
+     ['Pais', 'country_code'],
+     ['Region', 'state_code'],
+     ['Ciudad', 'city'],
+     ['Telefonos', 'telephones'],
+     ['Organizacion', 'organization'],
+     ['Posicion', 'position'],
+     ['Posicion politica', 'political_position'],
+     ['Nivel de confianza', 'level_trust'],
+     ['Tags', 'tags'],
+   ]
+  end
 end

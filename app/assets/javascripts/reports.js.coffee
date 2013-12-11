@@ -107,6 +107,4 @@ $("a#add-all-button").click (event) ->
 
 $('textarea#report_contact_ids').trigger 'change'
 
-$('#report_columns_report').chosen()
-
 loadContacts()

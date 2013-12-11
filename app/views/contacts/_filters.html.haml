@@ -57,9 +57,13 @@
 
       .border-box
         .filter-row
-          .col-lg-12
+          #columns-container.col-lg-12
             %label Columnas
-            = select_tag 'cols', cols_to_options(params[:cols]), multiple: true, class: 'form-control'
+            %br
+            - columns_array.each do |column|
+              %label
+                = column.first
+                = check_box_tag 'cols[]', column.last, params[:cols].include?(column.last)
 
       .filter-row
         .col-lg-12

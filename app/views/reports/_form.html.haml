@@ -12,8 +12,8 @@
 
   .form-group
     %label.col-lg-2.control-label Columns:
-    .col-lg-10
-      = form.select :columns_report, cols_to_options(@report.columns_report), {}, {class: 'form-control', multiple: true}
+    #cols-container.col-lg-10
+      = form.collection_check_boxes :columns_report, columns_array, :last, :first
 
   = form.submit class: 'btn btn-primary'
 
