@@ -52,7 +52,7 @@ class ExportDocx
       text contact.name
       text contact.address
       text contact.address_2
-      text "#{contact.city}, #{Carmen::Country.coded(contact.country_code).name}"
+      text "#{contact.city}, #{contact.country_code.present? ? Carmen::Country.coded(contact.country_code).name : "N/A"}"
     end
   end
   

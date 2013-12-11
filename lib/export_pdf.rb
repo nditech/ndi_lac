@@ -50,10 +50,10 @@ class ExportPdf < Prawn::Document
   def render_labels
     @contacts.each do |contact|
       font_size 12 do
-        text contact.name
-        text contact.address
-        text contact.address_2
-        text "#{contact.city}, #{Carmen::Country.coded(contact.country_code).name}"
+        text contact.name || "N/A"
+        text contact.address || "N/A"
+        text contact.address_2 || "N/A"
+        text "#{contact.city || "N/A"}, #{contact.country_code.present? ? Carmen::Country.coded(contact.country_code).name : "N/A"}"
         move_down 20
         y_position = cursor
       end
