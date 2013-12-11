@@ -40,6 +40,15 @@ class ReportsController < ApplicationController
       render :new, error: 'There is some errors in your report.'
     end
   end
+  
+  def destroy
+    report = Report.find params[:id]
+    if report.delete
+      redirect_to reports_url, notice: 'Reporte borrado con exito.'
+    else
+      redirect_to reports_url, notice: 'Hubo un error al borrar el reporte.'
+    end
+  end
 
   private
   
