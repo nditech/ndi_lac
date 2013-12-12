@@ -53,7 +53,12 @@ module SolrSearch
             with(:level_trust).any_of(filters[:level_of_trust]) if filters[:level_of_trust].present?
             with(:tags).any_of(filters[:tags]) if filters[:tags].present?
             
-            paginate(:page => filters[:page], :per_page => 50) if filters[:page].present? && filters[:page] != 'all'
+            if filters[:page] == 'all'
+              paginate(:page => 1, :per_page => Contact.count) 
+            else
+              paginate(:page => filters[:page] || 1, :per_page => 50)
+            end
+            
           end).results
         end
       end

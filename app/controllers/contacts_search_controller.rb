@@ -16,7 +16,7 @@ class ContactsSearchController < ApplicationController
 
   def create
     params[:filters] = {} if params[:filters].blank?
-    params[:filters][:page] = params[:page]
+    params[:filters][:page] = params[:page] if params[:filters][:page].blank? && params[:page].present?
     @contacts = Contact.filters(params[:filters])
     
     respond_with do |format|

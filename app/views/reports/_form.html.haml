@@ -23,10 +23,12 @@
   .col-lg-6
     %h4 
       Search Results
-      %small
-        %a#add-all-button.btn.btn-success.pull-right
-          %span.glyphicon.glyphicon-plus
-          Add All
+      %a#add-visibles-button.btn.btn-success.pull-right
+        %span.glyphicon.glyphicon-plus
+        Agregar visibles
+      %a#add-all-button.btn.btn-success.pull-right
+        %span.glyphicon.glyphicon-plus
+        Agregar todos
     %ul.pagination
     %table#contacts-search-results.table.table-hover.table-bordered
       %thead
@@ -44,10 +46,3 @@
           %th Name
           %th Actions
       %tbody
-            
-
-<script id="contact-result-template" type="text/x-handlebars-template">
-</script>
-
-<script id="contact-to-report-template" type="text/x-handlebars-template">
-</script>

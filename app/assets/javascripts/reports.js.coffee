@@ -100,10 +100,23 @@ $(document).on "click", "a.remove-to-report", (event) ->
   $("table#contacts-search-results tbody a#contact-id-" + contactId).removeAttr("disabled")
   
 
-$("a#add-all-button").click (event) -> 
+$("a#add-visibles-button").click (event) -> 
   event.preventDefault
   $.each $('a.add-to-report[disabled!=disabled]'), (index, link) ->
     $(link).trigger 'click'
+
+$("a#add-all-button").click (event) -> 
+  event.preventDefault
+  contactIds = $('textarea#report_contact_ids').val().split(",").filter (n) -> n
+  filters = $('form#search-contacts-form').serialize() + "&filters[page]=all"
+  $.ajax '/contacts_search',
+    data: filters 
+    success: (data, status, xhr) ->
+      results = jQuery.parseJSON(data)[0]
+      $.each results.collection, (index, contact) ->
+        contactIds.push contact.id
+        addContactToReport(contact)
+      $('textarea#report_contact_ids').val contactIds.join ","
 
 $('textarea#report_contact_ids').trigger 'change'
 

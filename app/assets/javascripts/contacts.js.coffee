@@ -162,10 +162,8 @@ App.Contacts =
   validateForm: ->
     if App.Contacts.countryPresent() && App.Contacts.firstNamePresent() && App.Contacts.LastNamePresent() && App.Contacts.regionPresent()
       App.Contacts.$$$.formSubmitBtn.removeClass("disabled")
-      console.log "VALIDO"
       App.Contacts.$$$.formSubmitBtn.popover 'destroy'
     else
-      console.log "NO VALIDO"
       missingFields = App.Contacts.missingRequiredFields().join(", ")
       App.Contacts.$$$.formSubmitBtn.attr('data-content', missingFields)
       App.Contacts.$$$.formSubmitBtn.popover 'show'
