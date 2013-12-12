@@ -55,7 +55,7 @@ $(document).on "click", "a.add-to-report", (event) ->
   addContactToReport(contact)
   $(@).attr('disabled','disabled')
 
-$(document).on "click", "ul.pagination a", (event) ->
+$(document).on "click", "ul.pagination.reports-pagination a", (event) ->
   event.preventDefault()
   goToPage = $(@).data('to-page')
   filters = $('form#search-contacts-form').serialize() + "&filters[page]=" + goToPage 
@@ -77,7 +77,8 @@ extractContact = (element) ->
 
 loadContacts = ->
   contactIds = $('textarea#report_contact_ids').val()
-  if contactIds != ''
+  console.log(contactIds)
+  if contactIds != '' && contactIds != undefined
     $.ajax '/contacts_search',
       data:
         filters:

@@ -7,7 +7,7 @@
     = csrf_meta_tag
 
 
-  %body
+  %body{'data-no-turbolink' => true}
     %header.navbar.navbar-default.navbar-static-top
       .container
         = link_to 'NDI Database', root_path, class: 'navbar-brand'

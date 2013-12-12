@@ -220,6 +220,7 @@ $('a#add-email-button').click (event) ->
   $('fieldset#emails-sets').append(HandlebarsTemplates['contacts/email']({index: newIndex }));
   $('form#new_contact, form[id*=edit_contact]').validate();    
 
-
-  
-    
+$(document).on 'keypress', 'form#filters-contacts-form input', (event) ->
+  keyCode = event.keyCode
+  if(keyCode  == 13)
+    $('form#filters-contacts-form').submit()
