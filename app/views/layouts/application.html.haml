@@ -2,7 +2,7 @@
 %html
   %head
     %title
-      NDI Database
+      Base de Datos NDI-LAC
     = stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true 
     = csrf_meta_tag
 
@@ -10,7 +10,7 @@
   %body{'data-no-turbolink' => true}
     %header.navbar.navbar-default.navbar-static-top
       .container
-        = link_to 'NDI Database', root_path, class: 'navbar-brand'
+        = link_to 'Base de Datos NDI-LAC', root_path, class: 'navbar-brand'
         - if current_user
           %ul.nav.navbar-nav
             %li= link_to 'Reportes', reports_path

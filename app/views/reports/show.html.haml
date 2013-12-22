@@ -3,35 +3,35 @@
   %small
     = link_to reports_path, class: 'btn btn-primary pull-right' do
       %span.glyphicon.glyphicon-arrow-left
-      Return
+      Regresar
 
 .row
   .col-lg-12
 
     = link_to report_export_excel_path(@report, format: :xls), method: :post, class: 'btn btn-success', id: 'export-to-excel-button' do
       %span.glyphicon.glyphicon-cloud-download
-      Export to Excel
+      Exportar a Excel
 
     = link_to report_export_pdf_path(@report, format: :pdf), method: :post, class: 'btn btn-success', id: 'export-to-pdf-button' do
       %span.glyphicon.glyphicon-cloud-download
-      Export to PDF
+      Exportar a PDF
 
     = link_to report_export_docx_path(@report, format: :docx), method: :post, class: 'btn btn-success', id: 'export-to-pdf-button' do
       %span.glyphicon.glyphicon-cloud-download
-      Export to Word
+      Exportar a Word
     
     .btn-group
       %button.btn.btn-success.dropdown-toggle{"data-toggle" => "dropdown"}>
         %span.glyphicon.glyphicon-cloud-download
-        Export Labels 
+        Exportar Etiquetas 
         %span.caret
       %ul.dropdown-menu{role: "menu"}
         %li
           = link_to report_export_docx_path(@report, format: :docx, labels: true), method: :post do
-            Export to Word
+            Exportar a Word
         %li
           = link_to report_export_pdf_path(@report, format: :pdf, labels: true), method: :post do
-            Export to PDF
+            Exportar a PDF
 
 %table.table.table-hover.table-bordered
   %thead
