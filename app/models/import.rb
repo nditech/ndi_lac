@@ -1,6 +1,9 @@
 class Import < ActiveRecord::Base
   
+  include Importer
+  
   belongs_to :user
+  has_many :failed_imports
     
   state_machine :status, initial: :new do
     
@@ -11,7 +14,11 @@ class Import < ActiveRecord::Base
     end
     
     event :complete do
-      transition :started => :completed
+      transition [:started, :conflicted] => :completed
+    end
+    
+    event :conflict do
+      transition :started => :conflicted
     end
     
     event :fail do
@@ -40,17 +47,25 @@ class Import < ActiveRecord::Base
     where(status: :new)
   end
   
+  def self.conflited
+    where(status: :conflicted)
+  end
+  
   def delete_file
     File.delete(path_file)
   end
   
+  def complete_if_not_failed_imports!
+    complete! if failed_imports.unresolved.count == 0 and can_complete?
+  end
+  
   def process
     begin
-      self.start!
-      Contact.import(File.open(path_file))
-      self.complete!
+      start!
+      import
+      complete! if can_complete?
     rescue Exception => e
-      self.fail!
+      fail!
     end
   end
 end

@@ -23,7 +23,7 @@ gem 'sunspot_rails'
 gem 'devise'
 gem 'cancan'
 gem 'rolify'
-gem 'roo'
+gem 'roo', github: 'Empact/roo'
 gem "sentry-raven", :git => "https://github.com/getsentry/raven-ruby.git"
 gem 'prawn'
 gem "audited-activerecord", git: 'git@github.com:jparbros/audited.git'

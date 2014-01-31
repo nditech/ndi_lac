@@ -1,0 +1,200 @@
+%h1
+  Conflictos de contacto
+  
+.row
+  .col-lg-6
+    .panel.panel-default
+      .panel-heading
+        %h3.panel-title
+          Contacto existente
+      .panel-body
+        = link_to 'Conservar contacto', import_failed_import_path(@failed_import.import, @failed_import, actions: :keep), method: :put, class: 'btn btn-primary pull-right'
+
+        %h4 Informacion Personal
+
+        %dl.dl-horizontal
+          %dt Nombre:
+          %dd= @failed_import.contact.first_name
+  
+          %dt Apellido:
+          %dd= @failed_import.contact.last_name
+  
+          %dt Genero:
+          %dd= @failed_import.contact.genre.try :humanize
+  
+          %dt Twitter:
+          %dd= @failed_import.contact.twitter
+  
+          %dt Facebook:
+          %dd= @failed_import.contact.facebook
+
+        %h4 Direccion
+
+        %dl.dl-horizontal
+          %dt Direccion:
+          %dd
+            = @failed_import.contact.address
+            %br
+            = @failed_import.contact.address_2
+  
+          %dt Pais:
+          %dd
+            - country_code = @failed_import.contact.country_code
+            - country = Carmen::Country.coded(country_code) if country_code.present?
+            = "#{country.name} (#{country_code})" if country.present?
+  
+          %dt Estado/Region:
+          %dd= "#{country.subregions.coded(@failed_import.contact.state_code).name} (#{@failed_import.contact.state_code})" if @failed_import.contact.state_code.present? and @failed_import.contact.state_code.size <= 3
+  
+          %dt Ciudad:
+          %dd= @failed_import.contact.city
+
+        %h4 Telefonoes
+
+        %dl.dl-horizontal
+          - @failed_import.contact.telephones.each do |telephone|
+            %dt= "#{telephone.kind.humanize}:"
+            %dd= telephone.number
+
+        %h4 Emails
+
+        %dl.dl-horizontal
+          - @failed_import.contact.emails.each do |email|
+            %dt= "#{email.kind.humanize}:"
+            %dd= email.email
+
+        %h4 Relacion con el Ndi
+
+        %dl.dl-horizontal
+          %dt Consultor:
+          %dd
+            - if @failed_import.contact.ndi_consultant
+              %span.glyphicon.glyphicon-ok.ok-color
+            - else
+              %span.glyphicon.glyphicon-remove.not-color
+
+          %dt Pro bono:
+          %dd
+            - if @failed_import.contact.probono
+              %span.glyphicon.glyphicon-ok.ok-color
+            - else
+              %span.glyphicon.glyphicon-remove.not-color
+  
+          %dt Nivel de confianza:
+          %dd= @failed_import.contact.level_trust
+
+        %h4 Informacion politica
+
+        %dl.dl-horizontal
+          %dt Organizacion:
+          %dd= @failed_import.contact.organization.name if @failed_import.contact.organization
+  
+          %dt Posicion en la org.:
+          %dd= @failed_import.contact.position
+  
+          %dt Posicion politica:
+          %dd= Contact::POLITICAL_POSITIONS[@failed_import.contact.political_position.to_s].humanize if @failed_import.contact.political_position
+
+        %h4 Tags 
+
+        %dl.dl-horizontal 
+          %dt tags:
+          %dd
+            - @failed_import.contact.tags.each do |tag|
+              %span.label.label-primary
+                = tag.name
+        
+    
+  .col-lg-6
+    .panel.panel-default
+      .panel-heading
+        %h3.panel-title
+          Contacto a importar
+      .panel-body
+        = link_to 'Reemplazar contacto', import_failed_import_path(@failed_import.import, @failed_import, actions: :replace), method: :put, class: 'btn btn-primary pull-right'
+
+        %h4 Informacion Personal
+
+        %dl.dl-horizontal
+          %dt Nombre:
+          %dd= @failed_import.contact_params['first_name']
+  
+          %dt Apellido:
+          %dd= @failed_import.contact_params['last_name']
+  
+          %dt Genero:
+          %dd= @failed_import.contact_params['genre'].try :humanize
+  
+          %dt Twitter:
+          %dd= @failed_import.contact_params['twitter']
+  
+          %dt Facebook:
+          %dd= @failed_import.contact_params['facebook']
+
+        %h4 Direccion
+
+        %dl.dl-horizontal
+          %dt Direccion:
+          %dd
+            = @failed_import.contact_params['address']
+            %br
+            = @failed_import.contact_params['address_2']
+  
+          %dt Pais:
+          %dd
+            - country_code = @failed_import.contact_params['country_code']
+            - country = Carmen::Country.coded(country_code) if country_code.present?
+            = "#{country.name} (#{country_code})" if country.present?
+  
+          %dt Estado/Region:
+          %dd= "#{country.subregions.coded(@failed_import.contact_params['state_code']).name} (#{@failed_import.contact_params['state_code']})" if @failed_import.contact_params['state_code'].present? and @failed_import.contact_params['state_code'].size <= 3
+  
+          %dt Ciudad:
+          %dd= @failed_import.contact_params['city']
+
+        %h4 Telefonos
+
+        %dl.dl-horizontal
+          - @failed_import.contact_params['telephones_attributes'].each do |telephone|
+            %dt= "#{telephone[:kind].humanize}:"
+            %dd= telephone[:number]
+
+        %h4 Emails
+
+        %dl.dl-horizontal
+          - @failed_import.contact_params['emails_attributes'].each do |email|
+            %dt= "#{email['kind'].humanize}:"
+            %dd= email[:email]
+
+        %h4 Relacion con el Ndi
+
+        %dl.dl-horizontal
+          %dt Consultor:
+          %dd
+            - if @failed_import.contact_params['ndi_consultant']
+              %span.glyphicon.glyphicon-ok.ok-color
+            - else
+              %span.glyphicon.glyphicon-remove.not-color
+
+          %dt Pro bono:
+          %dd
+            - if @failed_import.contact_params['probono']
+              %span.glyphicon.glyphicon-ok.ok-color
+            - else
+              %span.glyphicon.glyphicon-remove.not-color
+  
+          %dt Nivel de confianza:
+          %dd= @failed_import.contact_params['level_trust']
+
+        %h4 Informacion politica
+
+        %dl.dl-horizontal
+          %dt Organizacion:
+          %dd= @failed_import.contact_params.organization.name if @failed_import.contact.organization
+  
+          %dt Posicion en la org.:
+          %dd= @failed_import.contact_params['position']
+  
+          %dt Posicion politica:
+          %dd= Contact::POLITICAL_POSITIONS[@failed_import.contact_params['political_position'].to_s] if @failed_import.contact_params['political_position']
+    

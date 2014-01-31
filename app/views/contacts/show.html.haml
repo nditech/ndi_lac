@@ -39,7 +39,7 @@
     = "#{country.name} (#{country_code})" if country.present?
   
   %dt Region/State:
-  %dd= "#{country.subregions.coded(@contact.state_code).name} (#{@contact.state_code})" if @contact.state_code.present?
+  %dd= "#{country.subregions.coded(@contact.state_code).name} (#{@contact.state_code})" if @contact.state_code.present? and @contact.state_code.size <= 3
   
   %dt City:
   %dd= @contact.city

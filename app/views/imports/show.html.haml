@@ -1,0 +1,65 @@
+%h1 Archivo Importado ##{@import.id}
+  
+.panel.panel-default
+  .panel-heading
+    %h3.panel-title
+      Resumen de la importacion del archivo
+  .panel-body
+    %dl.dl-horizontal
+      %dt Archivo:
+      %dd= @import.path_file
+      
+      %dt Total de contactos:
+      %dd=  @import.total_rows.to_i
+      
+      %dt Contactos Importados:
+      %dd=  @import.imported_rows.to_i
+      
+      %dt Contactos en conflicto:
+      %dd=  @import.failed_imports.size
+      
+      %dt Estatus:
+      %dd
+        - if @import.status == 'new'
+          .label.label-info Esperando para ser procesado.
+        
+        - if @import.started?
+          .label.label-primary Procesando.
+        
+        - if @import.completed?
+          .label.label-success Completado correctamente.
+        
+        - if @import.conflicted?
+          .label.label-warning Completado con conflictos por corregir.
+        
+        - if @import.failed?
+          .label.label-warning Fallo la importacion del archivo.
+      
+      %dt Notas:
+      %dd
+        - unless @import.failed_imports.blank?
+          %p #{@import.failed_imports.size} contactos tuvieron conflictos.
+
+- unless @import.failed_imports.blank?
+  .panel.panel-default
+    .panel-heading
+      %h3.panel-title
+        Conflictos
+
+    .panel-body
+      %table.table
+        %thead
+          %tr
+            %th Nombre del contacto
+            %th
+        
+        %tbody
+          - @import.failed_imports.each do |failed_import|
+            %tr
+              %td
+                = "#{failed_import.contact_attributes["first_name"]} #{failed_import.contact_attributes['last_name']}"
+              %td
+                - if failed_import.resolved?
+                  .label.label-success Resuelto
+                - else
+                  = link_to 'Resolver Conflicto', import_failed_import_path(@import, failed_import)

@@ -16,6 +16,9 @@ NdiDatabase::Application.routes.draw do
   resources :export_excel, only: [:create]
   resources :export_pdf, only: [:create]
   resources :import_excel, only: [:create]
+  resources :imports, only: [:index, :show] do
+    resources :failed_imports, only: [:show, :update]
+  end
   resources :reports do
     resource :export_pdf, only: [:create], controller: 'export_pdf'
     resource :export_excel, only: [:create], controller: 'export_excel'

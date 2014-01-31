@@ -11,10 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131205133704) do
+ActiveRecord::Schema.define(version: 20140131152125) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "hstore"
 
   create_table "audits", force: true do |t|
     t.integer  "auditable_id"
@@ -79,6 +80,15 @@ ActiveRecord::Schema.define(version: 20131205133704) do
     t.integer  "contact_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "failed_imports", force: true do |t|
+    t.integer  "import_id"
+    t.hstore   "contact_attributes"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.boolean  "resolved",           default: false
+    t.integer  "contact_id"
   end
 
   create_table "imports", force: true do |t|

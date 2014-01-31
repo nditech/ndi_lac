@@ -47,10 +47,14 @@ class ContactsController < ApplicationController
     end
   end
   
+  def destroy
+    @contact = Contact.find params[:id]
+    @contact.delete
+    redirect_to contacts_url, notice: 'Contact deleted successfully.'
+  end
+  
   def validate_phone_number
     valid_phone = GlobalPhone.validate(params[:phone_number])
-    puts "================"
-    puts "Phone #{params[:phone_number]} valid: #{valid_phone}"
     render json: {valid: valid_phone}
   end
   

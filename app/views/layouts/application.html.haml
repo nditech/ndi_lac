@@ -34,14 +34,20 @@
           - current_user.imports.started.each do |import|
             .alert.alert-info
               %button.close{"aria-hidden" => "true", "data-dismiss" => "alert", type: "button"} ×
-              %strong You have a file that is being processed
+              %strong El archivo ##{import.id} se está procesando.
 
         - unless current_user.imports.new_imports.empty?
           - current_user.imports.new_imports.each do |import|
             .alert.alert-info
               %button.close{"aria-hidden" => "true", "data-dismiss" => "alert", type: "button"} ×
-              %strong You have a file that is waiting to be processed
-      
+              %strong El archivo ##{import.id} esta esperando para ser procesando.
+
+        - unless current_user.imports.conflited.empty?
+          - current_user.imports.conflited.each do |import|
+            .alert.alert-warning
+              %button.close{"aria-hidden" => "true", "data-dismiss" => "alert", type: "button"} ×
+              %strong El archivo ##{import.id} se proceso y se encontraron conflictos. #{link_to 'Resolver conflictos.', import_path(import)}
+
       = yield
 
 = javascript_include_tag "application", "data-turbolinks-track" => true
