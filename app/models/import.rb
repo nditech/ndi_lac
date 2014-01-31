@@ -14,7 +14,7 @@ class Import < ActiveRecord::Base
     end
     
     event :complete do
-      transition [:started, :conflicted] => :completed
+      transition [:started, :conflicted] => :completed, if: :can_complete_without_unresolved_failed_imports?
     end
     
     event :conflict do
@@ -56,7 +56,11 @@ class Import < ActiveRecord::Base
   end
   
   def complete_if_not_failed_imports!
-    complete! if failed_imports.unresolved.count == 0 and can_complete?
+    complete!
+  end
+
+  def can_complete_without_unresolved_failed_imports?
+    failed_imports.unresolved.count == 0
   end
   
   def process

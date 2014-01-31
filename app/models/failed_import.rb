@@ -17,10 +17,14 @@ class FailedImport < ActiveRecord::Base
   
   def resolve!
     update_attribute :resolved, true
-    import.complete_if_not_failed_imports!
+    import.complete!
   end
   
   def differences
     (contact.attributes.to_a - contact_params.to_a).map &:first
+  end
+  
+  def organization_name
+    Organization.find(@contact_params['organization_id']).name
   end
 end

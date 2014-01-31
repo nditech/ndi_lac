@@ -22,6 +22,14 @@ module Importer
     "democracia_con_resultados" => "results_democracy",
     "actividad_ndi" => "ndi_activity"
   }
+  
+  POLITICAL_POSITIONS = {
+    'izquierda' => '1',
+    'centro-izquierda' => '2',
+    'centro' => '3',
+    'centro-derecha' => '4',
+    'derecha' => '5'
+  }
 
   def import
     spreadsheet = open_spreadsheet(file)
@@ -34,12 +42,9 @@ module Importer
       inspect_emails
       inspect_phones
       inspect_booleans
-      
-      if row["country"].present?
-        row["country_code"] = (row["country"].size > 2) ? Carmen::Country.named(row["country"].humanize).try(:code) : row["country"]
-      end 
-      row.delete("country")
-      
+      inspect_organization
+      inspect_politcal_position
+      inspect_country
 
       if can_process_contact?
         contact = Contact.new
@@ -58,6 +63,12 @@ module Importer
       contact_params[FIELDS[key] || key] = value unless value.blank?
     end
     contact_params
+  end
+
+  def inspect_organization
+    organization = Organization.find_or_create_by_name @contact_params['organizacion']
+    @contact_params['organization_id'] = organization.id
+    @contact_params.delete('organizacion')
   end
 
   def inspect_emails
@@ -111,7 +122,7 @@ module Importer
 
     if @contact_params['telefono_casa'].present?
       @contact_params["telephones_attributes"] << {number: @contact_params["telefono_casa"].to_s, kind: "casa"}
-      @contact_params.delete("")
+      @contact_params.delete("telefono_casa")
     end
 
     if @contact_params['telefono_mobil'].present?
@@ -147,6 +158,17 @@ module Importer
     if @contact_params['results_democracy'].present? && boolean_field_is_marked?(@contact_params['results_democracy'].downcase)
       @contact_params['results_democracy'] = true
     end
+  end
+  
+  def inspect_politcal_position
+    @contact_params['political_position'] = POLITICAL_POSITIONS[@contact_params['political_position']]
+  end
+  
+  def inspect_country
+    if @contact_params["country_code"].present?
+      @contact_params["country_code"] = (@contact_params["country_code"].size >= 2) ? Carmen::Country.named(@contact_params["country_code"].humanize).try(:code) : @contact_params["country_code"]
+    end 
+    @contact_params.delete("country_code")
   end
   
   def boolean_field_is_marked? boolean_field
