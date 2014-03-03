@@ -11,7 +11,7 @@
       %label.col-lg-2.control-label Country:
       .col-lg-10
         - if current_user.is_admin?
-          = form.country_select :country_code, {prompt: 'Please select one'}, class: 'form-control', required: true
+          = form.country_select :country_code, {prompt: 'Please select one'}, class: 'form-control', required: true, multiple: true
         - else
           = Carmen::Country.coded(@user.country_code).name
 

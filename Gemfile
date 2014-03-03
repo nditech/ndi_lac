@@ -16,7 +16,7 @@ end
 gem 'carmen-rails', :git => 'https://github.com/freerunningtechnologies/carmen-rails', :branch => 'rails4'
 gem 'phone'
 gem 'bootstrap-sass', git: 'git@github.com:thomas-mcdonald/bootstrap-sass.git'
-gem 'compass-rails', '~> 2.0.alpha.0'
+gem 'compass-rails'
 gem 'haml-rails'
 gem 'acts-as-taggable-on'
 gem 'sunspot_rails'

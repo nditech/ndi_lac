@@ -10,9 +10,11 @@ class User < ActiveRecord::Base
   has_many :reports
   has_many :imports
   before_create :set_default_role
+  
+  serialize :country_code
 
   def country_name
-    country_code.present? ? Carmen::Country.coded(country_code).name : 'N/A'
+    country_code.present? ? Carmen::Country.coded(country_code.first).name : 'N/A'
   end
   
   def set_password new_password
