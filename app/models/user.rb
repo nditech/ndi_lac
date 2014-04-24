@@ -14,7 +14,7 @@ class User < ActiveRecord::Base
   serialize :country_code
 
   def country_name
-    country_code.present? ? Carmen::Country.coded(country_code.first).name : 'N/A'
+    country_code.present? ? Carmen::Country.coded(country_code.first).try(:name) : 'N/A'
   end
   
   def set_password new_password
