@@ -22,7 +22,7 @@ module Importer
     "democracia_con_resultados" => "results_democracy",
     "actividad_ndi" => "ndi_activity"
   }
-  
+
   POLITICAL_POSITIONS = {
     'izquierda' => '1',
     'centro-izquierda' => '2',
@@ -50,11 +50,12 @@ module Importer
         contact = Contact.new
         contact.attributes = @contact_params.to_hash
         contact.save!
+        contact.index!
       else
         self.failed_imports.create contact_attributes: Hash[@contact_params], contact_id: previuos_contact.id
         conflict! if can_conflict?
       end
-    end 
+    end
   end
 
   def contact_attributes row
@@ -101,7 +102,7 @@ module Importer
 
     @contact_params.delete("emails_attributes") if @contact_params["emails_attributes"].empty?
   end
-  
+
   def inspect_phones
     @contact_params["telephones_attributes"] = []
 
@@ -137,48 +138,47 @@ module Importer
 
     @contact_params.delete("telephones_attributes") if @contact_params["telephones_attributes"].empty?
   end
-  
+
   def inspect_booleans
     if @contact_params['ndi_consultant'].present? && boolean_field_is_marked?(@contact_params['ndi_consultant'].downcase)
       @contact_params['ndi_consultant'] = true
     end
-    
+
     if @contact_params['probono'].present? && boolean_field_is_marked?(@contact_params['probono'].downcase)
       @contact_params['probono'] = true
     end
-    
+
     if @contact_params['national_leadership_program'].present? && boolean_field_is_marked?(@contact_params['national_leadership_program'].downcase)
       @contact_params['national_leadership_program'] = true
     end
-    
+
     if @contact_params['regional_leadership_program'].present? && boolean_field_is_marked?(@contact_params['regional_leadership_program'].downcase)
       @contact_params['regional_leadership_program'] = true
     end
-    
+
     if @contact_params['results_democracy'].present? && boolean_field_is_marked?(@contact_params['results_democracy'].downcase)
       @contact_params['results_democracy'] = true
     end
   end
-  
+
   def inspect_politcal_position
     @contact_params['political_position'] = POLITICAL_POSITIONS[@contact_params['political_position']]
   end
-  
+
   def inspect_country
     if @contact_params["country_code"].present?
-      @contact_params["country_code"] = (@contact_params["country_code"].size >= 2) ? Carmen::Country.named(@contact_params["country_code"].humanize).try(:code) : @contact_params["country_code"]
-    end 
-    @contact_params.delete("country_code")
+      @contact_params["country_code"] = (@contact_params["country_code"].size > 2) ? Carmen::Country.named(@contact_params["country_code"].humanize).try(:code) : @contact_params["country_code"]
+    end
   end
-  
+
   def boolean_field_is_marked? boolean_field
     boolean_field == 'x' || boolean_field == 't' || boolean_field == 'si' || boolean_field == 's'
   end
-  
+
   def can_process_contact?
     Contact.find_by_email(@emails).blank?
   end
-  
+
   def previuos_contact
     Contact.find_by_email(@emails).first
   end
@@ -191,7 +191,7 @@ module Importer
     else raise "Unknown file type: #{file.path}"
     end
   end
-  
+
   def file
     File.open(path_file)
   end
