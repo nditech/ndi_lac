@@ -3,7 +3,7 @@
   %head
     %title
       Base de Datos NDI-LAC
-    = stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true 
+    = stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true
     = csrf_meta_tag
 
 
@@ -17,6 +17,7 @@
             %li= link_to 'Contactos', contacts_path
             %li= link_to 'Organizaciones', organizations_path if current_user.is_admin?
             %li= link_to 'Usuarios', users_path if current_user.is_admin?
+            %li= link_to 'Archivos Importados', imports_path
             %li.dropdown
               %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
                 = current_user.email
@@ -27,7 +28,7 @@
                 %li
                   =link_to 'Salir', destroy_user_session_path, method: :delete
     #errors-container
-      
+
     .container
       - if current_user
         - unless current_user.imports.started.empty?

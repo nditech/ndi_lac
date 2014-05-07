@@ -1,0 +1,30 @@
+%tr
+  %td
+    = import.id
+  %td
+    = import.file_name
+  %td
+    %strong Contactos totales:
+    = import.total_rows.to_i
+    %br
+    %strong Contactos importados:
+    = import.imported_rows.to_i
+  %td
+    - if import.new?
+      .label.label-info Esperando para ser procesado.
+
+    - if import.started?
+      .label.label-primary Procesando.
+
+    - if import.completed?
+      .label.label-success Completado correctamente.
+
+    - if import.conflicted?
+      .label.label-warning Completado con conflictos por corregir.
+
+    - if import.failed?
+      .label.label-warning Fallo la importacion del archivo.
+  %td
+    =link_to import_path(import), class: 'btn btn-success col-lg-12'  do
+      %span.glyphicon.glyphicon-eye-open
+      Ver

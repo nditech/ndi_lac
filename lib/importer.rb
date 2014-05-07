@@ -34,6 +34,7 @@ module Importer
   def import
     spreadsheet = open_spreadsheet(file)
     header = spreadsheet.row(1).map {|header_col| header_col.downcase.parameterize('_')}
+    update_attribute(:total_rows, (spreadsheet.last_row - 1))
     (2..spreadsheet.last_row).each do |i|
       row = Hash[[header, spreadsheet.row(i)].transpose]
 
@@ -51,11 +52,13 @@ module Importer
         contact.attributes = @contact_params.to_hash
         contact.save!
         contact.index!
+        increment_imported_row
       else
         self.failed_imports.create contact_attributes: Hash[@contact_params], contact_id: previuos_contact.id
         conflict! if can_conflict?
       end
     end
+    update_attribute(:ended_at, Time.now)
   end
 
   def contact_attributes row
@@ -190,6 +193,11 @@ module Importer
     when ".xlsx" then Roo::Excelx.new(file.path, nil, :ignore)
     else raise "Unknown file type: #{file.path}"
     end
+  end
+
+  def increment_imported_row
+    update_attribute(:imported_rows, 0) unless imported_rows
+    increment(:imported_rows)
   end
 
   def file
