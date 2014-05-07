@@ -2,9 +2,12 @@
   %td= user.id
   %td= user.email
   %td
-    - user.country_code.each do |country_code|
-      = Carmen::Country.coded(country_code).try(:name)
-      %br
+    - if user.country_code
+      - user.country_code.each do |country_code|
+        = Carmen::Country.coded(country_code).try(:name)
+        %br
+    - else
+      N/A
 
   %td
     = link_to edit_user_path(user), class: 'btn btn-primary' do
