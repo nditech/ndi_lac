@@ -1,15 +1,15 @@
 class UsersController < ApplicationController
   load_and_authorize_resource
   skip_authorize_resource :only => [:profile, :update, :create]
-  
+
   def index
     @users = User.all
   end
-  
+
   def new
     @user = User.new
   end
-  
+
   def create
     @user = User.new user_params
     generated_password = Devise.friendly_token.first(8)
@@ -21,21 +21,20 @@ class UsersController < ApplicationController
       render :new, error: 'There is some errors in your user.'
     end
   end
-  
+
   def edit
     @user = User.find params[:id]
   end
-  
+
   def update
     @user = User.find params[:id]
-    debugger
     if @user.update_attributes user_params
       redirect_to users_url, notice: 'User updated successfully.'
     else
       render :edit, error: 'There is some errors in your user.'
     end
   end
-  
+
   def destroy
     @user = User.find params[:id]
     if @user.delete
@@ -44,23 +43,22 @@ class UsersController < ApplicationController
       redirect_to users_url, notice: 'There is an error deleting the user.'
     end
   end
-  
+
   def profile
     @user = current_user
     render :edit
   end
-  
+
   private
-  
+
   def user_params
     params.require(:user).permit(
       :email,
-      :country_code,
       :password,
       :password_confirmation,
       :role,
-      :country_code,
+      country_code: [],
     )
   end
-  
+
 end

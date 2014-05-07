@@ -1,7 +1,11 @@
 %tr
   %td= user.id
   %td= user.email
-  %td= user.country_name
+  %td
+    - user.country_code.each do |country_code|
+      = Carmen::Country.coded(country_code).try(:name)
+      %br
+
   %td
     = link_to edit_user_path(user), class: 'btn btn-primary' do
       Edit
