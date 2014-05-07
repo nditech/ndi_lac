@@ -32,7 +32,7 @@ module Importer
   }
 
   def import
-    spreadsheet = open_spreadsheet(file)
+    spreadsheet = select_sheet(open_spreadsheet(file))
     header = spreadsheet.row(1).map {|header_col| header_col.downcase.parameterize('_')}
     update_attribute(:total_rows, (spreadsheet.last_row - 1))
     (2..spreadsheet.last_row).each do |i|
@@ -193,6 +193,13 @@ module Importer
     when ".xlsx" then Roo::Excelx.new(file.path, nil, :ignore)
     else raise "Unknown file type: #{file.path}"
     end
+  end
+
+  def select_sheet(spreadsheet)
+    if spreadsheet.sheets.size > 1
+      spreadsheet.default_sheet = 'Template'
+    end
+    spreadsheet
   end
 
   def increment_imported_row

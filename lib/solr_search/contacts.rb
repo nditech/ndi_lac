@@ -1,6 +1,6 @@
 module SolrSearch
   module Contacts
-    
+
     def self.included(base)
       base.class_eval do
         searchable do
@@ -33,13 +33,13 @@ module SolrSearch
             tags.map {|tag| tag.name}
           end
         end
-        
+
         def self.filters(filters)
           (search do
             with(:id).any_of(filters[:ids].split(',')) if filters[:ids].present?
             keywords filters[:first_name].downcase, fields: :first_name if filters[:first_name].present?
             keywords filters[:last_name].downcase, fields: :last_name if filters[:last_name].present?
-            with(:email, filters[:email].downcase) if filters[:email].present?
+            with(:emails, filters[:email].downcase) if filters[:email].present?
             if filters[:countries_code].present?
               if filters[:countries_code].is_a? Array
                 with(:country_code).any_of(filters[:countries_code])
@@ -52,17 +52,17 @@ module SolrSearch
             with(:political_position).any_of(filters[:political_positions]) if filters[:political_positions].present?
             with(:level_trust).any_of(filters[:level_of_trust]) if filters[:level_of_trust].present?
             with(:tags).any_of(filters[:tags]) if filters[:tags].present?
-            
+
             if filters[:page] == 'all'
-              paginate(:page => 1, :per_page => Contact.count) 
+              paginate(:page => 1, :per_page => Contact.count)
             else
               paginate(:page => filters[:page] || 1, :per_page => 50)
             end
-            
+
           end).results
         end
       end
     end
-    
+
   end
 end
