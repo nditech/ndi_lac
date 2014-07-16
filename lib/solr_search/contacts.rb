@@ -39,7 +39,7 @@ module SolrSearch
             with(:id).any_of(filters[:ids].split(',')) if filters[:ids].present?
             keywords filters[:first_name].downcase, fields: :first_name if filters[:first_name].present?
             keywords filters[:last_name].downcase, fields: :last_name if filters[:last_name].present?
-            with(:emails, filters[:email].downcase) if filters[:email].present?
+            with(:emails).any_of([filters[:email].downcase]) if filters[:email].present?
             if filters[:countries_code].present?
               if filters[:countries_code].is_a? Array
                 with(:country_code).any_of(filters[:countries_code])

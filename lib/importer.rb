@@ -70,9 +70,11 @@ module Importer
   end
 
   def inspect_organization
-    organization = Organization.find_or_create_by_name @contact_params['organizacion']
-    @contact_params['organization_id'] = organization.id
-    @contact_params.delete('organizacion')
+    if @contact_params['organizacion'].present?
+      organization = Organization.find_or_create_by_name @contact_params['organizacion']
+      @contact_params['organization_id'] = organization.id
+      @contact_params.delete('organizacion')
+    end
   end
 
   def inspect_emails
