@@ -1,6 +1,6 @@
 class UsersMailer < ActionMailer::Base
-  default from: "from@example.com"
-  
+  default from: "no-response@ndi.org"
+
   def welcome_email(user, password)
     @user = user
     @password  = password
