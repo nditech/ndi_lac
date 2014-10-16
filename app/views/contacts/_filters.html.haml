@@ -17,42 +17,42 @@
           .col-lg-12
             %label Pais
             - if current_user.all_countries?
-              = select_tag "filters[countries_code]", 
-                  options_for_select(Carmen::Country.all.map {|country| [country.name, country.code]}, params[:filters][:countries_code]), 
+              = select_tag "filters[countries_code]",
+                  options_for_select(Carmen::Country.all.map {|country| [country.name, country.code]}, params[:filters][:countries_code]),
                   multiple: true, include_blank: true, class: 'form-control'
 
             - else
               %br
-              %strong=Carmen::Country.coded(current_user.country_code).name if current_user.country_code
+              %strong=Carmen::Country.coded(current_user.country_code.first).name if current_user.country_code
               =hidden_field_tag 'filters[countries_code]', current_user.country_code if current_user.country_code
       .border-box
         .filter-row
           .col-lg-12
             %label Organizacion
-            = select_tag "filters[organizations]", 
-                options_for_select(Organization.all.map {|organization| [organization.name, organization.id]}, params[:filters][:organizations]), 
+            = select_tag "filters[organizations]",
+                options_for_select(Organization.all.map {|organization| [organization.name, organization.id]}, params[:filters][:organizations]),
                 multiple: true, include_blank: true, class: 'form-control'
           .col-lg-12
             %label Tipo de Organizacion
-            = select_tag "filters[organization_kinds]", 
-                options_for_select(Organization::TYPES.map {|type| [type.last, type.first]}, params[:filters][:organization_kinds]), 
+            = select_tag "filters[organization_kinds]",
+                options_for_select(Organization::TYPES.map {|type| [type.last, type.first]}, params[:filters][:organization_kinds]),
                 multiple: true, include_blank: true, class: 'form-control'
-                
-                
+
+
           .col-lg-12
             %label Posicion Political
-            = select_tag "filters[political_positions]", 
-                options_for_select(Contact::POLITICAL_POSITIONS.map {|position| [position.last.humanize, position.first]}, params[:filters][:political_positions]), 
+            = select_tag "filters[political_positions]",
+                options_for_select(Contact::POLITICAL_POSITIONS.map {|position| [position.last.humanize, position.first]}, params[:filters][:political_positions]),
                 multiple: true, include_blank: true, class: 'form-control'
           .col-lg-12
             %label Nivel de confianza
-            = select_tag "filters[level_of_trust]", 
-                options_for_select([1,2,3,4,5], params[:filters][:level_of_trust]), 
+            = select_tag "filters[level_of_trust]",
+                options_for_select([1,2,3,4,5], params[:filters][:level_of_trust]),
                 multiple: true, include_blank: true, class: 'form-control'
           .col-lg-12
             %label Tags
-            = select_tag "filters[tags]", 
-                options_for_select(ActsAsTaggableOn::Tag.all.map {|tag| tag.name}, params[:filters][:tags]), 
+            = select_tag "filters[tags]",
+                options_for_select(ActsAsTaggableOn::Tag.all.map {|tag| tag.name}, params[:filters][:tags]),
                 multiple: true, include_blank: true, class: 'form-control'
 
       .border-box
@@ -80,5 +80,4 @@
           = link_to '#', class: 'btn btn-lg btn-success col-lg-12', id: 'export-to-pdf-button' do
             %span.glyphicon.glyphicon-cloud-download
             Exportar a PDF
-    
-      
+
