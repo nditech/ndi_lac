@@ -69,6 +69,7 @@ class Import < ActiveRecord::Base
       import
       complete! if can_complete?
     rescue Exception => e
+      update_attribute :exception_message, e
       failing!
     end
   end
