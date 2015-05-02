@@ -199,7 +199,7 @@ module Importer
 
   def select_sheet(spreadsheet)
     if spreadsheet.sheets.size > 1
-      spreadsheet.default_sheet = 'Template'
+      spreadsheet.default_sheet = spreadsheet.sheets.first
     end
     spreadsheet
   end
