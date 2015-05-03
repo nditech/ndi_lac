@@ -11,7 +11,7 @@ class FailedImport < ActiveRecord::Base
     return @contact_params if @contact_params
     @contact_params = ActiveSupport::HashWithIndifferentAccess.new contact_attributes
 
-    if failed.contact_attributes['telephones_attributes']
+    if contact_attributes['telephones_attributes']
       @contact_params['telephones_attributes'] = eval(c).map {|telephone_attribute| ActiveSupport::HashWithIndifferentAccess.new telephone_attribute}
     end
 
