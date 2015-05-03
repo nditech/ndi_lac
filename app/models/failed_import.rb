@@ -13,10 +13,14 @@ class FailedImport < ActiveRecord::Base
 
     if contact_attributes['telephones_attributes']
       @contact_params['telephones_attributes'] = eval(c).map {|telephone_attribute| ActiveSupport::HashWithIndifferentAccess.new telephone_attribute}
+    else
+      @contact_params['telephones_attributes'] = []
     end
 
     if contact_attributes['emails_attributes']
       @contact_params['emails_attributes'] = eval(contact_attributes['emails_attributes']).map {|email_attribute| ActiveSupport::HashWithIndifferentAccess.new email_attribute}
+    else
+      @contact_params['emails_attributes'] = []
     end
 
     @contact_params
